@@ -1,0 +1,2 @@
+*gravedad*: mientras esta en el piso deshabilitamos la gravedad.
+*salto*: desactivar el evento del salto hasta que colisiona con el piso
