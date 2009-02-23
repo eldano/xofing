@@ -1,0 +1,30 @@
+<spriteDef>
+	<spriteGroup groupName="quico">
+		<img filename="quico.png">
+<!-- x,y,w,h definen la posicion y dimenciones del subsprite, hsx,hsy son las coordenadas relativas del HotSpot -->
+			<sprite id="1" x="0" y="171" w="50" h="85" hsx="25" hsy="85"/>
+			<sprite id="2" x="50" y="171" w="50" h="85" hsx="25" hsy="85"/>
+			<sprite id="3" x="100" y="171" w="50" h="85" hsx="25" hsy="85"/>
+			<sprite id="4" x="150" y="171" w="50" h="85" hsx="25" hsy="85"/>
+			<sprite id="5" x="0" y="86" w="50" h="85" hsx="25" hsy="85"/>
+			<sprite id="6" x="50" y="86" w="50" h="85" hsx="25" hsy="85"/>
+			<sprite id="7" x="100" y="86" w="50" h="85" hsx="25" hsy="85"/>
+			<sprite id="8" x="150" y="86" w="50" h="85" hsx="25" hsy="85"/>
+<!-- si el tag "keycolor" no se especifica, se toma el primer pixel del archivo como keycolor-->
+		</img>
+		<animations>
+			<animation name="walkRight" type="loop">
+				<frame spriteId="1" delay="0.2" order="1"/>
+				<frame spriteId="2" delay="0.2" order="2"/>
+				<frame spriteId="3" delay="0.2" order="3"/>
+				<frame spriteId="4" delay="0.2" order="4"/>
+			</animation>
+			<animation name="walkLeft" type="loop">
+				<frame spriteId="5" delay="0.2" order="1"/>
+				<frame spriteId="6" delay="0.2" order="2"/>
+				<frame spriteId="7" delay="0.2" order="3"/>
+				<frame spriteId="8" delay="0.2" order="4"/>
+			</animation>
+		</animations>
+	</spriteGroup>
+</spriteDef>
