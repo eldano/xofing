@@ -1,0 +1,40 @@
+<spriteDef>
+	<spriteGroup groupName="zero">
+		<img filename="../data/zx4.gif">
+<!-- x,y,w,h definen la posicion y dimenciones del subsprite, hsx,hsy son las coordenadas relativas del HotSpot -->
+			<sprite id="1" x="91" y="161" w="55" h="56" hsx="26" hsy="50"/>
+			<sprite id="2" x="147" y="160" w="55" h="56" hsx="28" hsy="51"/>
+			<sprite id="3" x="204" y="160" w="55" h="56" hsx="27" hsy="49"/>
+			<sprite id="4" x="259" y="160" w="55" h="56" hsx="27" hsy="49"/>
+			<sprite id="5" x="313" y="160" w="50" h="56" hsx="28" hsy="48"/>
+			<sprite id="6" x="365" y="160" w="50" h="56" hsx="23" hsy="48"/>
+			<sprite id="7" x="417" y="160" w="55" h="56" hsx="23" hsy="51"/>
+			<sprite id="8" x="473" y="160" w="52" h="56" hsx="23" hsy="51"/>
+			<sprite id="9" x="529" y="160" w="52" h="56" hsx="18" hsy="51"/>
+			<sprite id="10" x="581" y="160" w="55" h="56" hsx="23" hsy="51"/>
+			<sprite id="11" x="638" y="160" w="55" h="56" hsx="25" hsy="51"/>
+			<sprite id="12" x="695" y="160" w="50" h="56" hsx="25" hsy="51"/>
+			<sprite id="13" x="743" y="160" w="50" h="56" hsx="25" hsy="51"/>
+			<sprite id="14" x="793" y="160" w="55" h="56" hsx="25" hsy="51"/>
+<!-- si el tag "keycolor" no se especifica, se toma el primer pixel del archivo como keycolor-->
+		</img>
+		<animations>
+			<animation name="correr" type="loop">
+				<frame spriteId="1" delay="0.2" order="1"/>
+				<frame spriteId="2" delay="0.2" order="2"/>
+				<frame spriteId="3" delay="0.2" order="3"/>
+				<frame spriteId="4" delay="0.2" order="4"/>
+				<frame spriteId="5" delay="0.2" order="5"/>
+				<frame spriteId="6" delay="0.2" order="6"/>
+				<frame spriteId="7" delay="0.2" order="7"/>
+				<frame spriteId="8" delay="0.2" order="8"/>
+				<frame spriteId="9" delay="0.2" order="9"/>
+				<frame spriteId="10" delay="0.2" order="10"/>
+				<frame spriteId="11" delay="0.2" order="11"/>
+				<frame spriteId="12" delay="0.2" order="12"/>
+				<frame spriteId="13" delay="0.2" order="13"/>
+				<frame spriteId="14" delay="0.2" order="14"/>
+			</animation>
+		</animations>
+	</spriteGroup>
+</spriteDef>
