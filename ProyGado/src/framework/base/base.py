@@ -13,11 +13,11 @@ baseSystem = None
 def getBase():
     global baseSystem
     if baseSystem == None:
-        baseSyte = Base()
+        baseSystem = Base()
     return baseSystem
 
 def getState():
-    global baseSystem
+    global appStateVar
     if appStateVar == None:
         appStateVar = {}
     return appStateVar
