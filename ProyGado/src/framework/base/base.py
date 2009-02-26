@@ -105,7 +105,7 @@ class Component:
                 act.react(event, self)
     
     # Send an event to all listeners
-    def _raiseEvent_(self, event):
+    def __raiseEvent__(self, event):
         for receiver in self.sendEventsTo:
             receiver.notify(self, event)
 
@@ -198,8 +198,8 @@ class Base(Component):
                 rec.update(EventObject(self, 'tick', 1))
         
             if not self.keyMap == currentKeys:
-                Component._raiseEvent_(self, EventObject(self, 'keyboardChanged', self.keyMap))
-            Component._raiseEvent_(self, EventObject(self, 'keyboard', self.keyMap))
+                Component.__raiseEvent__(self, EventObject(self, 'keyboardChanged', self.keyMap))
+            Component.__raiseEvent__(self, EventObject(self, 'keyboard', self.keyMap))
         
             #gFrame.paint(screen)
             self.currentFrame.paint(1, self.screen)
