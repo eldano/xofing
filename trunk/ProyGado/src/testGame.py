@@ -9,6 +9,9 @@ from framework.base.base import *
 from framework.view.sprite import *
 from framework.view.xmlparser import *
 from framework.view.VComponent import *
+from framework.gui.GComponent import *
+
+base = getBase()
 
 print('Starting demo')
 
@@ -21,23 +24,40 @@ character1.addRelatedAction(enemy1, PrintAction(), None)
 frame = Frame('../data/back.jpeg')
 
 spriteSize = 3
+#allSprites = xmlparser.parseSpriteFile('../data/zero.xml')
+#zeroSprite = allSprites['zero']
 allSprites = xmlparser.parseSpriteFile('../data/chapulin.xml')
 zeroSprite = allSprites['chapulin']
-character = miSprite(zeroSprite, spriteSize, False, 'chapulin', 6)
+character = miSprite(zeroSprite, spriteSize, False, 'megaman', 6)
 character.x = 150
-character.y = 150
+character.y = 450
 character.width = 100
 character.height = 100
 
+enemy1 = miSprite(zeroSprite, spriteSize, False, 'tontoman', 6)
+enemy1.x = 250
+enemy1.y = 450
+enemy1.width = 100
+enemy1.height = 100
+
 limiter = ObjectMover('screenLimiter', 130,200,400, 250, frame, character)
 
-frame.addVisible(character)
+gui = getUIManager()
+btn1 = Button('btn1', 10,10, 'Soy un boton', 'arial black', 12)
+gui.addChild(btn1)
+gui.addRelatedAction(btn1, CodeAction('event.sender.addChild(event.sender.createWindow(\'wnd\', 150,150,300,300, \'Ventanita1\', \'arial\', 15))'), 'click')
+#gui.addChild(Window('wnd', 150,150,300,300, 'Ventanita1', 'arial', 15))
 
-base = getBase()
+frame.addVisible(character)
+frame.addVisible(enemy1)
+frame.addVisible(gui)
+
 base.defineFrame(frame)
 base.addTickListener(limiter)
 
-character.addRelatedAction(base, KeyboardController2(), 'keyboard')
+character.addRelatedAction(base, KeyboardController(), 'keyboard')
 character.addRelatedAction(base, KeyboardController3(), 'keyboard')
+
+character.addRelatedAction(enemy1, MoveAction(), 'move')
 
 base.runSystem()

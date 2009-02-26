@@ -27,7 +27,7 @@ class VComponent(Component):
         print('Painting')
     
     def nextFrame(self, elapsed):
-        print 'next'
+        Component.__raiseEvent__(self, EventObject(self, 'move', None))
         
 class ObjectMover(VComponent):
     limitedObject = None
