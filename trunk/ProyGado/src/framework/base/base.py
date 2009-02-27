@@ -170,6 +170,8 @@ class Base(Component):
 
         self.screen = pygame.display.get_surface()
 
+	clock = pygame.time.Clock()
+
         while not self.gExit:
             currentKeys = self.keyMap
             for event in pygame.event.get():
@@ -202,5 +204,5 @@ class Base(Component):
             Component.__raiseEvent__(self, EventObject(self, 'keyboard', self.keyMap))
         
             #gFrame.paint(screen)
-            self.currentFrame.paint(1, self.screen)
+            self.currentFrame.paint(clock.tick(), self.screen)
             pygame.display.flip()

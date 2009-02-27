@@ -14,16 +14,16 @@
 		</img>
 		<animations>
 			<animation name="walkRight" type="loop">
-				<frame spriteId="1" delay="0.2" order="1"/>
-				<frame spriteId="2" delay="0.2" order="2"/>
-				<frame spriteId="3" delay="0.2" order="3"/>
-				<frame spriteId="4" delay="0.2" order="4"/>
+				<frame spriteId="1" delay="200" order="1"/>
+				<frame spriteId="2" delay="200" order="2"/>
+				<frame spriteId="3" delay="200" order="3"/>
+				<frame spriteId="4" delay="200" order="4"/>
 			</animation>
 			<animation name="walkLeft" type="loop">
-				<frame spriteId="5" delay="0.2" order="1"/>
-				<frame spriteId="6" delay="0.2" order="2"/>
-				<frame spriteId="7" delay="0.2" order="3"/>
-				<frame spriteId="8" delay="0.2" order="4"/>
+				<frame spriteId="5" delay="200" order="1"/>
+				<frame spriteId="6" delay="200" order="2"/>
+				<frame spriteId="7" delay="200" order="3"/>
+				<frame spriteId="8" delay="200" order="4"/>
 			</animation>
 		</animations>
 	</spriteGroup>

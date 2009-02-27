@@ -42,6 +42,7 @@ class miSprite(pygame.sprite.Sprite, VComponent):
 		self.updateRate = 0
 		self._lastRect = (0,0,0,0)
 		self.updater = updater
+		self._acumulated_animation_time = 0
 
 	def processEvent(self, e):
 		Component.processEvent(self, e)
@@ -56,16 +57,21 @@ class miSprite(pygame.sprite.Sprite, VComponent):
 
 	def nextFrame(self, time):
 		# TODO: evaluar el tiempo para saber cual es el frame actual.
+		self._acumulated_animation_time += time
 		self.raisedMoved = False
 		
-		self.x = self.x + self.velX
-		self.y = self.y + self.velY
+		self.x = self.x + self.velX #TODO: evaluar optimizacion
+		self.y = self.y + self.velY #TODO: evaluar optimizacion
 		
-		if self.updateRate == 0:
-			self.nextFrameOld()
-			self.updateRate = 4
-		else:
-			self.updateRate -= 1
+		#if self.updateRate == 0:
+		#	self.nextFrameOld()
+		#	self.updateRate = 4
+		#else:
+		#	self.updateRate -= 1
+		while self._animFrames[self._actualFrame][1] < self._acumulated_animation_time:
+			self._acumulated_animation_time -= self._animFrames[self._actualFrame][1]
+			self._actualFrame = (self._actualFrame + 1) % len(self._animFrames)
+		
 		self.dirX = False
 		self.dirY = False
 
@@ -81,7 +87,7 @@ class miSprite(pygame.sprite.Sprite, VComponent):
 			#self.nextFrame(1)
 	
 	def draw(self,screen):
-		(spriteId, delay, order) = self._animFrames[self._actualFrame]
+		(spriteId, delay) = self._animFrames[self._actualFrame]
 #		spriteId = self._actualFrame [0]
 #		delay = self._actualFrame[1]
 
@@ -105,15 +111,17 @@ class miSprite(pygame.sprite.Sprite, VComponent):
 		else:
 			self._image.set_colorkey(colorkey)
 		for key in diccSprites.keys():
-			x,y,w,h,hsx,hsy = diccSprites[key]
+			#x,y,w,h,hsx,hsy = diccSprites[key]
+			rectangle, (hsx,hsy) = diccSprites[key]
 			
-			rectangle = pygame.rect.Rect(int(x),int(y),int(w),int(h))
+			#rectangle = pygame.rect.Rect(int(x),int(y),int(w),int(h))
 			subsurf = self._image.subsurface(rectangle)
 			if self._debug:
 				pygame.draw.line(subsurf,(255,0,0), (hsx-2, hsy), (hsx+2, hsy))
 				pygame.draw.line(subsurf,(255,0,0), (hsx, hsy-2), (hsx, hsy+2))
 			for i in range(self._size-1):
 				subsurf = pygame.transform.scale2x(subsurf)
+				#TODO: verificar el posible "update" de variable "rectangle"
 			subsurf.set_colorkey(subsurf.get_at((0,0)))
 			subsurf.set_colorkey(colorkey)
 			self._subSprites[key] = (subsurf,rectangle,(hsx,hsy))
