@@ -6,7 +6,7 @@ Created on 22/02/2009
 
 
 
-class Action():
+class Action:
     # EventObject event, Component sender
     def react(self, event, sender):
         print('Action received')
