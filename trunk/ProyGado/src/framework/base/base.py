@@ -16,22 +16,19 @@ def getBase():
         baseSystem = Base()
     return baseSystem
 
-def getState():
+def getAppState():
     global appStateVar
     if appStateVar == None:
-        appStateVar = {}
+        appStateVar = AppState()
     return appStateVar
 
 # This class is used to save the application state.
-class AppState:
-    stateObjects = {}
-    
+class AppState:    
     def __init__(self):
-        global appStateVar
-        appStateVar = self
+        self.stateObjects = {}
 
 # This is to pass event information
-class EventObject():
+class EventObject:
     sender = ''
     eventName = ''
     parameter = ''
