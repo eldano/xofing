@@ -3,7 +3,6 @@
 
 from xml.dom import minidom
 import string
-import pygame
 
 imgNodeName = "img"
 animsNodeName = "animations"
@@ -49,7 +48,7 @@ def parseSprite(spriteElem):
 	h = int(attrs.getNamedItem(attrH).value)
 	hsx = int(attrs.getNamedItem(attrHSX).value)
 	hsy = int(attrs.getNamedItem(attrHSY).value)
-	return id,pygame.Rect(x,y,w,h),(hsx,hsy)
+	return id,x,y,w,h,hsx,hsy
 	
 
 def parseImg(imgElem):
@@ -61,8 +60,8 @@ def parseImg(imgElem):
 	keyColor = None
 	for element in imgElem.childNodes:
 		if element.nodeType == minidom.Node.ELEMENT_NODE and element.nodeName == spriteNodeName:
-			id,rect,hotSpot = parseSprite(element)
-			spriteCol[id] = (rect,hotSpot)
+			id,x,y,w,h,hsx,hsy = parseSprite(element)
+			spriteCol[id] = (x,y,w,h,hsx,hsy)
 		elif element.nodeType == minidom.Node.ELEMENT_NODE and element.nodeName == keyColorNodeName:
 			keyColor = parseKeyColor(element)
 	return filename, spriteCol, keyColor
@@ -72,7 +71,7 @@ def parseFrame(frameElement):
 	if attrs.length != 3:
 		raise Exception("el elemento "+frameElement.nodeName+" tiene que tener tres atributos: [spriteID, delay, order]")
 	spriteID = int(attrs.getNamedItem(attrFrameId).value)
-	delay = int(attrs.getNamedItem(attrFrameDelay).value)
+	delay = float(attrs.getNamedItem(attrFrameDelay).value)
 	order = int(attrs.getNamedItem(attrFrameOrder).value)
 	return spriteID, delay, order
 
@@ -87,7 +86,7 @@ def parseAnimation(animationElement):
 		if frame.nodeType == minidom.Node.ELEMENT_NODE:
 			list.append(parseFrame(frame))
 	list.sort(lambda x,y:cmp(x[2],y[2])) 
-	return name, type, map(lambda (x,y,z):(x,y), list)
+	return name, type, list
 
 def parseAnimations(animElem):
 	anims = {}
@@ -99,7 +98,7 @@ def parseAnimations(animElem):
 
 def parseGroup(spriteGroup, node):
 	img = None
-	animations = {}
+	animations = None
 	attrs = spriteGroup.attributes
 	if attrs.length < 1:
 		raise Exception("falta el atributo ["+spriteGroup.nodeName+".groupName]")
