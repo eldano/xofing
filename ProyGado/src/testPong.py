@@ -11,10 +11,6 @@ base = getBase()
 
 print('Starting demo')
 
-ball = VComponent('bola', 50, 50, 5, 5)
-ball.velX = 10
-ball.velY = 20
-
 frame = Frame('../data/back.jpeg')
 
 spriteSize = 1
@@ -26,19 +22,32 @@ ball.x = 150
 ball.y = 450
 ball.width = 30
 ball.height = 30
-ball.velX = 1
-ball.velY = -2
+ball.velX = 5
+ball.velY = -5
 
-topWall = Colisionador((0,200), (600,200), (0,1))
-bottomWall = Colisionador((0,600), (600,600), (0,1))
+padSprite = (xmlparser.parseSpriteFile('../data/pad.xml'))['pad']
+pad = miSprite(padSprite, spriteSize, False, 'pad', 6)
+pad.x = 300
+pad.y = 473
+pad.width = 100
+pad.height = 15
+
+topWall = ColisionadorHz((0,200), (600,200), (0,1))
+bottomWall = ColisionadorHz((0,480), (600,480), (0,-1))
+leftWall = ColisionadorVt((0,200), (0,480), (1,0))
+rightWall = ColisionadorVt((600,200), (600,480), (-1,0))
 
 limiter = ObjectMover('screenLimiter', 130, 200, 400, 250, frame, ball)
 
 frame.addVisible(ball)
+frame.addVisible(pad)
 base.defineFrame(frame)
-base.addTickListener(limiter)
+#base.addTickListener(limiter)
 
 ball.addRelatedAction(base, BounceAction(topWall), 'collision')
 ball.addRelatedAction(base, BounceAction(bottomWall), 'collision')
+ball.addRelatedAction(base, BounceAction(leftWall), 'collision')
+ball.addRelatedAction(base, BounceAction(rightWall), 'collision')
+pad.addRelatedAction(base, KeyboardController2(), 'keyboard')
 
 base.runSystem()
