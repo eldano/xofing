@@ -3,8 +3,7 @@ Created on 22/02/2009
 
 @author: Harold
 '''
-
-
+from framework.base.vec2d import *
 
 class Action:
     # EventObject event, Component sender
@@ -108,5 +107,23 @@ class CodeAction(Action):
         globals()['sender'] = sender
         globals()['event'] = event
         exec(self.code)
-          
+
+class BounceAction(Action):
+    collider = None
+    
+    def __init__(self, collider):
+        self.collider = collider
+        
+    def react(self, event, sender):
+        if(self.collider == None):
+            return
+        collisionDetected = self.collider.checkCollision(sender)
+        if(collisionDetected):
+            normalVector = vec2d(self.collider.normalVector)
+            incidentVector = vec2d(sender.velX, sender.velY)
+            resultingVector = incidentVector - 2*(normalVector.dot(incidentVector))*normalVector           
+            sender.velX = resultingVector[0]
+            sender.velY = resultingVector[1]
+            self.collider = None
+
 # Limiting actions
