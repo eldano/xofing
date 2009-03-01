@@ -55,13 +55,23 @@ class KeyboardController2(Action):
         if event.parameter & 2 != 0:
             sender.y = sender.y-8
 
-#Controla los cambios de animacion
+#Controla los cambios de animacion (deprecated por hardcodeos, usar KeyboardController4)
 class KeyboardController3(Action):
     def react(self, event, sender):
         if event.parameter & 8 != 0:
             sender.setAnim("walkRight")
         if event.parameter & 4 != 0:
             sender.setAnim("walkLeft")
+            
+#Controla los cambios de animacion
+class KeyboardController4(Action):
+    def __init__(self, animName, keyValue):
+        self.anim = animName
+        self.key = keyValue
+        
+    def react(self, event, sender):
+        if event.parameter & self.key != 0:
+            sender.setAnim(self.anim)
 
 class MoveAction(Action):
     def intersect(self, x1,w1,x2,w2):
