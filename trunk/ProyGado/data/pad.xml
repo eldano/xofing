@@ -1,0 +1,14 @@
+<spriteDef>
+	<spriteGroup groupName="pad">
+		<img filename="../data/pad.png">
+<!-- x,y,w,h definen la posicion y dimenciones del subsprite, hsx,hsy son las coordenadas relativas del HotSpot -->
+			<sprite id="1" x="0" y="0" w="100" h="15" hsx="49" hsy="7"/>
+<!-- si el tag "keycolor" no se especifica, se toma el primer pixel del archivo como keycolor-->
+		</img>
+		<animations>
+			<animation name="anim1" type="loop">
+				<frame spriteId="1" delay="1" order="1"/>
+			</animation>
+		</animations>
+	</spriteGroup>
+</spriteDef>
