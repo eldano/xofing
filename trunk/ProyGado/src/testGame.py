@@ -57,7 +57,8 @@ base.defineFrame(frame)
 base.addTickListener(limiter)
 
 character.addRelatedAction(base, KeyboardController(), 'keyboard')
-character.addRelatedAction(base, KeyboardController3(), 'keyboard')
+character.addRelatedAction(base, KeyboardController4('walkRight', 8), 'keyboard')
+character.addRelatedAction(base, KeyboardController4('walkLeft', 4), 'keyboard')
 
 character.addRelatedAction(enemy1, MoveAction(), 'move')
 
