@@ -1,0 +1,14 @@
+<spriteDef>
+	<spriteGroup groupName="bola">
+		<img filename="../data/bola.png">
+<!-- x,y,w,h definen la posicion y dimensiones del subsprite, hsx,hsy son las coordenadas relativas del HotSpot -->
+			<sprite id="1" x="0" y="0" w="30" h="30" hsx="14" hsy="14"/>
+<!-- si el tag "keycolor" no se especifica, se toma el primer pixel del archivo como keycolor-->
+		</img>
+		<animations>
+			<animation name="anim" type="loop">
+				<frame spriteId="1" delay="1" order="1"/>
+			</animation>
+		</animations>
+	</spriteGroup>
+</spriteDef>
