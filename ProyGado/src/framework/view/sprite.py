@@ -57,6 +57,7 @@ class miSprite(pygame.sprite.Sprite, VComponent):
 
 	def nextFrame(self, time):
 		# TODO: evaluar el tiempo para saber cual es el frame actual.
+		VComponent.nextFrame(self, time)
 		self._acumulated_animation_time += time
 		self.raisedMoved = False
 		
