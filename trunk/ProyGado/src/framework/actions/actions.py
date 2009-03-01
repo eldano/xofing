@@ -114,16 +114,29 @@ class BounceAction(Action):
     def __init__(self, collider):
         self.collider = collider
         
+    def sign(self, num):
+        if(num > 0):
+            return 1
+        elif(num < 0):
+            return -1
+        else:
+            return 0
+        
     def react(self, event, sender):
-        if(self.collider == None):
-            return
         collisionDetected = self.collider.checkCollision(sender)
         if(collisionDetected):
             normalVector = vec2d(self.collider.normalVector)
             incidentVector = vec2d(sender.velX, sender.velY)
-            resultingVector = incidentVector - 2*(normalVector.dot(incidentVector))*normalVector           
-            sender.velX = resultingVector[0]
-            sender.velY = resultingVector[1]
-            self.collider = None
+            resultingVector = incidentVector - 2*(normalVector.dot(incidentVector))*normalVector
+            
+            signX = self.sign(normalVector[0]) * self.sign(incidentVector[0]) * (-1)
+            signY = self.sign(normalVector[1]) * self.sign(incidentVector[1]) * (-1)
+            if(signX == 0):
+                signX = 1
+            if(signY == 0):
+                signY = 1
+            
+            sender.velX = resultingVector[0] * signX
+            sender.velY = resultingVector[1] * signY
 
 # Limiting actions
