@@ -199,6 +199,7 @@ class Base(Component):
             if not self.keyMap == currentKeys:
                 Component.__raiseEvent__(self, EventObject(self, 'keyboardChanged', self.keyMap))
             Component.__raiseEvent__(self, EventObject(self, 'keyboard', self.keyMap))
+            Component.__raiseEvent__(self, EventObject(self, 'collision', 1))
         
             #gFrame.paint(screen)
             self.currentFrame.paint(clock.tick(), self.screen)
