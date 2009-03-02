@@ -72,6 +72,21 @@ class KeyboardController4(Action):
         if event.parameter & self.key != 0:
             sender.setAnim(self.anim)
 
+class KeyboardController5(Action):
+    def react(self, event, sender):
+        if event.parameter & 8 != 0:
+            sender.punto1 = (sender.punto1[0]+8,sender.punto1[1])
+            sender.punto2 = (sender.punto2[0]+8,sender.punto2[1])
+        if event.parameter & 4 != 0:
+            sender.punto1 = (sender.punto1[0]-8,sender.punto1[1])
+            sender.punto2 = (sender.punto2[0]-8,sender.punto2[1])
+        if event.parameter & 1 != 0:
+            sender.punto1 = (sender.punto1[0],sender.punto1[1]+8)
+            sender.punto2 = (sender.punto2[0],sender.punto2[1]+8)
+        if event.parameter & 2 != 0:
+            sender.punto1 = (sender.punto1[0],sender.punto1[1]-8)
+            sender.punto2 = (sender.punto2[0],sender.punto2[1]-8)
+
 class MoveAction(Action):
     def intersect(self, x1,w1,x2,w2):
         dist = 0
