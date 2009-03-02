@@ -37,6 +37,8 @@ bottomWall = ColisionadorHz((0,480), (600,480), (0,-1))
 leftWall = ColisionadorVt((0,200), (0,480), (1,0))
 rightWall = ColisionadorVt((600,200), (600,480), (-1,0))
 
+padWall = ColisionadorHz((300, 480), (400 ,480), (0,-1))
+
 limiter = ObjectMover('screenLimiter', 130, 200, 400, 250, frame, ball)
 
 frame.addVisible(ball)
@@ -48,6 +50,8 @@ ball.addRelatedAction(base, BounceAction(topWall), 'collision')
 ball.addRelatedAction(base, BounceAction(bottomWall), 'collision')
 ball.addRelatedAction(base, BounceAction(leftWall), 'collision')
 ball.addRelatedAction(base, BounceAction(rightWall), 'collision')
+ball.addRelatedAction(base, BounceAction(padWall), 'collision')
 pad.addRelatedAction(base, KeyboardController2(), 'keyboard')
+padWall.addRelatedAction(base, KeyboardController5(), 'keyboard')
 
 base.runSystem()
