@@ -127,6 +127,9 @@ class miSprite(pygame.sprite.Sprite, VComponent):
 			subsurf.set_colorkey(colorkey)
 			self._subSprites[key] = (subsurf,rectangle,(hsx,hsy))
 			
+	def update(self, event):
+		Component.update(self, event)
+			
 	def reaction(self):
 		if not self.raisedMoved:
 			self.raisedMoved = True
