@@ -155,6 +155,9 @@ class Base(Component):
         self.windowName = 'demo'
         self.gExit = False
         self.keyMap = 0
+        self.globalReceivers = []
+        self.conditions = []
+        self.globalEvents = []
         
     def addTickListener(self, obj):
         self.globalReceivers.append(obj)
@@ -193,8 +196,15 @@ class Base(Component):
                     if event.key == 273:
                         self.keyMap = self.keyMap & 13
         
+            for cond in self.conditions:
+                cond.react(getAppState())
+        
             for rec in self.globalReceivers:
+                for e in self.globalEvents:
+                    rec.update(e)
                 rec.update(EventObject(self, 'tick', 1))
+            
+            self.globalEvents = []
         
             if not self.keyMap == currentKeys:
                 Component.__raiseEvent__(self, EventObject(self, 'keyboardChanged', self.keyMap))

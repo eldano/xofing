@@ -13,13 +13,15 @@ from framework.gui.GComponent import *
 from ide.gui.main import *
 
 base = getBase()
+state = getAppState()
+
+state.stateObjects['vida'] = 100
 
 print('Starting demo')
 
 character1 = Component('demo')
 enemy1 = Component('pepon')
 
-character1.addRelatedAction(enemy1, PrintAction(), None)
 #enemy1.raiseEvent(EventObject(enemy1, 'shot', None))
 
 frame = Frame('../data/back.jpeg')
@@ -60,6 +62,9 @@ character.addRelatedAction(base, KeyboardController(), 'keyboard')
 character.addRelatedAction(base, KeyboardController4('walkRight', 8), 'keyboard')
 character.addRelatedAction(base, KeyboardController4('walkLeft', 4), 'keyboard')
 
-character.addRelatedAction(enemy1, MoveAction(), 'move')
+character.addRelatedAction(enemy1, MoveAction(character, 'impacto'), 'move')
+character.addAction(NumericModifierAction(-1, 'vida'), 'impacto')
+
+base.conditions.append(LessCheckerAction(0, 'vida', None, None, CodeAction('print(\'Muerto\')')))
 
 base.runSystem()
