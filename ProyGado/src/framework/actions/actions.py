@@ -27,7 +27,7 @@ class Condition:
         self.evName = evName
         self.action = action
         
-    def react(self, appState):
+    def check(self, appState):
         None
     
     def __raiseEvent__(self):
