@@ -7,15 +7,17 @@ import pygame
 import os
 
 class Action:
-    def __init__(self, go, transition):
+    def __init__(self, go, transition, family):
         self.gameObject = go
         self.transition = transition
+        self.family = family
     
     def setGameObject(self, go):
         self.gameObject = go
     
     def execute(self):
-        None
+        co = self.gameObject.getComponent(self.family)
+        co.stateChange(self.transition)
 
 class Condition:
     def __init__(self):
@@ -65,14 +67,16 @@ class OrCondition(BinaryCondition):
     
     def evaluate(self, keyState, mouseState, elapsed):
         return self.condition1.evaluate(keyState, mouseState, elapsed) or self.condition2.evaluate(keyState, mouseState, elapsed)
-    
-class Component:
+
+class ComponentFamily:
     generic = 'generico'
     graphic = 'graphic'
     bounding = 'bounding'
     
+class Component:
+    
     def __init__(self):
-        self.family = Component.generic
+        self.family = ComponentFamily.generic
     
     def stateChange(self, transition):
         None
@@ -80,7 +84,7 @@ class Component:
 class GraphicComponent(Component):
     def __init__(self, x, y):
         Component.__init__(self)
-        self.family = Component.graphic
+        self.family = ComponentFamily.graphic
         self.x = x
         self.y = y
     
@@ -90,7 +94,7 @@ class GraphicComponent(Component):
 class BVComponent(Component):
     def __init__(self, x, y, width, height):
         Component.__init__(self)
-        self.family = Component.bounding
+        self.family = ComponentFamily.bounding
         self.x = x  # Chane to the native implementation
         self.y = y
         self.width = width
