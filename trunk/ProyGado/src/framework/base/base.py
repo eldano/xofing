@@ -20,10 +20,10 @@ class Action:
 class Condition:
     def __init__(self):
         self.parameters = []
-        self.proxy = None
+        self.proxy = []
         
-    def setProxy(self, proxy):
-        self.proxy = proxy
+    def addProxy(self, proxy):
+        self.proxy.append(proxy)
 
     def addParameter(self, go):
         self.parameters.append(go)
@@ -35,7 +35,8 @@ class Condition:
         None
     
     def execute(self):
-        proxy.execute()
+        for proxy in self.proxy:
+            proxy.execute()
 
 class NotCondition(Condition):
     def __init__(self, c1):
