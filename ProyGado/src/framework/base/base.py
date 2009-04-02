@@ -124,11 +124,35 @@ class GameLoop(GameObject):
     def setReturnCode(self, code):
         self.returnCode = code
     
+    def __updateInputState(self, event):
+        if event.type == pygame.QUIT:
+            self.endState = True
+            self.returnCode = -1        # The ser close by the window cross
+        elif event.type == pygame.KEYDOWN:
+            if event.key == 275: # left$
+                self.keyState = self.keyMap | 8
+            if event.key == 274: # down
+                self.keyState = self.keyMap | 1
+            if event.key == 276: # right
+                self.keyState = self.keyMap | 4
+            if event.key == 273: # top
+                self.keyState = self.keyMap | 2
+        elif event.type == pygame.KEYUP:
+            if event.key == 275:
+                self.keyState = self.keyMap & 7
+            if event.key == 274:
+                self.keyState = self.keyMap & 14
+            if event.key == 276:
+                self.keyState = self.keyMap & 11
+            if event.key == 273:
+                self.keyState = self.keyMap & 13
+    
     def gameLoop(self):
         
         while not self.endState:
             # Update input state
-            # . . .
+            for event in pygame.event.get():
+                self.__updateInputState(event)
             
             # Evaluate all conditions
             for cond in self.conditions:
