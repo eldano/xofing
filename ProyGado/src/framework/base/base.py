@@ -78,6 +78,12 @@ class Component:
     def __init__(self):
         self.family = ComponentFamily.generic
     
+    def update(self, elapsed):
+        None
+    
+    def isUpdatable(self):
+        return True
+    
     def stateChange(self, transition):
         None
 
@@ -168,9 +174,12 @@ class GameLoop(GameObject):
             # Draw objects
             for comp in self.drawable:
                 graf = comp.getComponent('graphic')
-                graf.draw(self.graphics, click.tick());
+                graf.draw(self.graphics, None);
             
             pygame.display.flip()
+            
+            for tick in self.tickers:
+                tick.update(clock.tick())
         
         return self.returnCode
         
