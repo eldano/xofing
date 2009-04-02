@@ -154,6 +154,8 @@ class GameLoop(GameObject):
     def gameLoop(self):
         
         while not self.endState:
+            clock = pygame.time.Clock()
+            
             # Update input state
             for event in pygame.event.get():
                 self.__updateInputState(event)
@@ -166,7 +168,7 @@ class GameLoop(GameObject):
             # Draw objects
             for comp in self.drawable:
                 graf = comp.getComponent('graphic')
-                graf.draw(self.graphics, None);
+                graf.draw(self.graphics, click.tick());
             
             pygame.display.flip()
         
