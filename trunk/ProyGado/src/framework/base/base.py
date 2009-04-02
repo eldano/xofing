@@ -135,7 +135,7 @@ class GameLoop(GameObject):
                     cond.execute()
             
             # Draw objects
-            for comp in drawable:
+            for comp in self.drawable:
                 graf = comp.getComponent('graphic')
                 graf.draw(self.graphics, None);
             
@@ -146,7 +146,18 @@ class GameLoop(GameObject):
 class GameManager:
     def __init__(self):
         # Here start pygame
-        None
+        pygame.init()
+        self.screen_size = (640,480)
+        self.window = pygame.display.set_mode(self.screen_size)
+        pygame.display.set_caption('demo')
+        self.screen = pygame.display.get_surface()
+        #clock = pygame.time.Clock()
+    
+    def run(self, level):
+        level.populate()
+        level.setSurface(self.screen)
+        level.run()
+        
     
 class GameLevel:
     def __init__(self, loop, surface):
@@ -155,6 +166,10 @@ class GameLevel:
         if self.gameLoop == None:
             self.gameLoop = GameLoop(surface)
         self.populate()
+    
+    def setSurface(self, surf):
+        self.surface = surf
+        self.gameLoop.graphics = self.surface
     
     def populate(self):
         None    # setup the components
