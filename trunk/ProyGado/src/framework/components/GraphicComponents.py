@@ -1,16 +1,19 @@
 import pygame
 pygame.font.init()
-from framework.base.base import *
+#from framework.base.base import *
+from framework.base.base import GraphicComponent
 
 class LabelComponent(GraphicComponent):
-	static_type = 'StaticType'
-	dynamic_type = 'DynamicType'
-	font = pygame.font.SysFont("arial",12)
+	font = pygame.font.SysFont("arial",18)
 
-	def __init__(self, x, y, str):
-		GraphicComponent.__init__(self, x, y)
-		self.displayString = str
-		self.type = self.static_type
+	def __init__(self, parent, x, y, componentFamily, attrName, go = None):
+		GraphicComponent.__init__(self, parent, x, y)
+		self.componentFamily = componentFamily
+		self.attrName = attrName
+		if go == None:
+			self.go = parent
+		else:
+			self.go = go
 
 #	def __init__(self, x, y, component_name, attr_name):
 #		GraphicComponent.__init__(self, x, y)
@@ -19,8 +22,7 @@ class LabelComponent(GraphicComponent):
 #		self.type = dynamic_type
 	
 	def draw(self, graphics, region):
-		if self.type == self.static_type:
-			graphics.blit(self.font.render(self.displayString, True, (255,255,255), (0,0,0)), (self.x,self.y))
-		else:
-			pass
-			#TODO (Mauricio) : en algun momento se va a implementar el label mas generico
+		co = self.go.getComponent(self.componentFamily)
+		value = getattr(co, self.attrName, 'sin valor')
+		graphics.blit(self.font.render(str(value), True, (255,255,255), (0,0,0)), (self.x,self.y))
+		#TODO: (Mauricio) : evaluar posible None value 
