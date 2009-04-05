@@ -77,9 +77,8 @@ class ComponentFamily:
 	strValue = 'strValue'
 	
 class Component:
-	
+	family = ComponentFamily.generic
 	def __init__(self, gameObjectParent):
-		self.family = ComponentFamily.generic
 		self.parent = gameObjectParent
 		gameObjectParent.addComponent(self) #do that after setting the "family" attribute
 		
@@ -94,9 +93,8 @@ class Component:
 		None
 
 class GraphicComponent(Component):
-	
+	family = ComponentFamily.graphic
 	def __init__(self, parent, x, y):
-		self.family = ComponentFamily.graphic
 		Component.__init__(self, parent)
 		self.x = x
 		self.y = y
@@ -165,10 +163,9 @@ class GameLoop(GameObject):
 				self.keyState = self.keyMap & 13
 	
 	def gameLoop(self):
-		
+		clock = pygame.time.Clock()
 		while not self.endState:
-			clock = pygame.time.Clock()
-			
+			self.elapsed = clock.tick() # miliseconds count
 			# Update input state
 			for event in pygame.event.get():
 				self.__updateInputState(event)

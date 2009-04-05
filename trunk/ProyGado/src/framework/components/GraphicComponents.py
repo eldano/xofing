@@ -24,5 +24,5 @@ class LabelComponent(GraphicComponent):
 	def draw(self, graphics, region):
 		co = self.go.getComponent(self.componentFamily)
 		value = getattr(co, self.attrName, 'sin valor')
-		graphics.blit(self.font.render(str(value), True, (255,255,255), (0,0,0)), (self.x,self.y))
+		graphics.blit(self.font.render(str(value), True, (255,255,255)), (self.x,self.y))
 		#TODO: (Mauricio) : evaluar posible None value 
