@@ -72,13 +72,17 @@ class ComponentFamily:
 	generic = 'generic'
 	graphic = 'graphic'
 	bounding = 'bounding'
+	move = 'move'
+	gui = 'gui'
 	strValue = 'strValue'
 	
 class Component:
-	family = ComponentFamily.generic
+	
 	def __init__(self, gameObjectParent):
+		self.family = ComponentFamily.generic
 		self.parent = gameObjectParent
 		gameObjectParent.addComponent(self) #do that after setting the "family" attribute
+		
 	
 	def update(self, elapsed):
 		None
@@ -90,12 +94,13 @@ class Component:
 		None
 
 class GraphicComponent(Component):
-	family = ComponentFamily.graphic
+	
 	def __init__(self, parent, x, y):
+		self.family = ComponentFamily.graphic
 		Component.__init__(self, parent)
 		self.x = x
 		self.y = y
-	
+
 	def draw(self, graphics, region):
 		None
 
