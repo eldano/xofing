@@ -19,7 +19,6 @@ class MyLevel(GameLevel):
         window = Window(go2, 10, 10, 300, 200, "ventana", "arial",12)
         myLabel = LabelComponent(go, 100,100, ComponentFamily.strValue, 'valor')
         val = StrValueComponent(go)
-        myLabel = LabelComponent(go, 100,100, ComponentFamily.strValue, 'valor')
         val.addAttr('valor', 123456)
         self.gameLoop.drawable.append(go2)
         self.gameLoop.drawable.append(go)
