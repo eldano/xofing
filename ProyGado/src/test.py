@@ -23,7 +23,7 @@ class MyLevel(GameLevel):
 		#val.addAttr('valor', 123456)
 		resetComponent = ResetComponent(go)
 		resetComponent.addAttrInit(ComponentFamily.strValue, 'valor', range(2,11))
-		resetComponent.reset()
+		resetComponent.reset() #invoke directly the "reset" feature of this component
 		self.gameLoop.drawable.append(go2)
 		self.gameLoop.drawable.append(go)
 	
