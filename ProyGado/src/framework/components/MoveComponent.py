@@ -15,21 +15,43 @@ class LeftRightMoveComponent(Component):
 		self.velocity = 0
 		self.maxVelocity = velocity
 		self.aceleration = aceleration
-		
+		self.state = 0
 	
-	def update(self):
-		xIncrement = 0
-		if(self.movingLeft): 
-			xIncrement = -self.velocity
-		if(self.movingRight): 
-			xIncrement = self.velocity
-
-	def stateChange(self, transition):
-		if(transition == 1): # Move right
-			self.velocity = self.velocity + self.aceleration
+	def update(self, dt):
+		if(self.state == 1): # Move right
+			self.velocity = self.velocity + self.aceleration*dt
 			if(self.velocity > self.maxVelocity):
 				self.velocity = self.maxVelocity
-		if(transition == 2): # Move left
-			self.velocity = self.velocity - self.aceleration
+		if(self.state == 2): # Move left
+			self.velocity = self.velocity - self.aceleration*dt
 			if(self.velocity < -self.maxVelocity):
 				self.velocity = -self.maxVelocity
+		if(self.state == 0):
+			if(self.velocity > 0):
+				self.velocity = self.velocity - self.aceleration*dt
+				if(self.velocity < 0):
+				    self.velocity = 0
+			if(self.velocity < 0):
+				self.velocity = self.velocity + self.aceleration*dt
+				if(self.velocity > 0):
+				    self.velocity = 0
+		if(self.state == 3):
+			self.velocity = 0
+		xIncrement = self.velocity*dt
+		gr = self.parent.getComponent(ComponentFamily.graphic)
+		gr.x = gr.x + xIncrement
+		
+
+	def stateChange(self, transition):
+		self.state = transition
+
+class XYMovement(Component):
+	def __init__(self, parent):
+		Component.__init__(self, parent)
+		self.velX = 0
+		self.velY = 0
+	
+	def update(self, dt):
+		gr = self.parent.getComponent(ComponentFamily.graphic)
+		gr.x = gr.x + dt*self.velX
+		gr.y = gr.y + dt*self.velY
