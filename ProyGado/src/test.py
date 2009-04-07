@@ -18,7 +18,7 @@ class MyLevel(GameLevel):
 		go2 = GameObject()
 		go = GameObject()
 		window = Window(go2, 10, 10, 300, 200, "ventana", "arial",12)
-		myLabel = LabelComponent(go, 100,100, ComponentFamily.strValue, 'valor')
+		myLabel = LabelComponent(go, 100,100, ComponentFamily.strValue, 'valor', "arial",12)
 		val = StrValueComponent(go)
 		#val.addAttr('valor', 123456)
 		resetComponent = ResetComponent(go)

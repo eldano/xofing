@@ -40,6 +40,13 @@ class Condition:
 		for proxy in self.proxy:
 			proxy.execute()
 
+class TrueCondition(Condition):
+	def __init__(self):
+		Condition.__init__(self)
+	
+	def evaluate(self, keyState, mouseState, elapsed):
+		return True
+
 class NotCondition(Condition):
 	def __init__(self, c1):
 		Condition.__init__(self)
