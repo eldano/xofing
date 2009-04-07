@@ -121,6 +121,13 @@ class GameObject:
 	def getComponent(self, family):
 		return self.components[family]
 
+class InputState:
+	keyboardState = []
+	mouseX = 0
+	mouseY = 0
+	newKeys = []
+	
+
 class GameLoop(GameObject):
 	def __init__(self, surface):
 		self.drawable = []
@@ -145,22 +152,22 @@ class GameLoop(GameObject):
 			self.returnCode = -1		# The ser close by the window cross
 		elif event.type == pygame.KEYDOWN:
 			if event.key == 275: # left$
-				self.keyState = self.keyMap | 8
+				self.keyState = self.keyState | 8
 			if event.key == 274: # down
-				self.keyState = self.keyMap | 1
+				self.keyState = self.keyState | 1
 			if event.key == 276: # right
-				self.keyState = self.keyMap | 4
+				self.keyState = self.keyState | 4
 			if event.key == 273: # top
-				self.keyState = self.keyMap | 2
+				self.keyState = self.keyState | 2
 		elif event.type == pygame.KEYUP:
 			if event.key == 275:
-				self.keyState = self.keyMap & 7
+				self.keyState = self.keyState & 7
 			if event.key == 274:
-				self.keyState = self.keyMap & 14
+				self.keyState = self.keyState & 14
 			if event.key == 276:
-				self.keyState = self.keyMap & 11
+				self.keyState = self.keyState & 11
 			if event.key == 273:
-				self.keyState = self.keyMap & 13
+				self.keyState = self.keyState & 13
 	
 	def gameLoop(self):
 		clock = pygame.time.Clock()
