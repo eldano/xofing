@@ -212,7 +212,7 @@ class GameManager:
 		#clock = pygame.time.Clock()
 	
 	def run(self, level):
-		level.populate()
+#		level.populate()
 		level.setSurface(self.screen)
 		level.run()
 		
