@@ -13,9 +13,9 @@ class GUIStyle:
 	color = (150,150,150)
 	titleColor = (150,150,230)
 	textColor = (0,0,0)
+	editableTextBG = (255,255,255)
 
 class Window(GraphicComponent):
-	family = ComponentFamily.graphic
 	def __init__(self, parent, x, y, width, height, title, font, size):
 		GraphicComponent.__init__(self, parent, x, y)
 		self.title = title
@@ -33,4 +33,15 @@ class Window(GraphicComponent):
 		render = self.font.render(self.title, False, GUIStyle.textColor)
 		graphics.blit(render, (self.x+2*self.titleBorder,self.y+2*self.titleBorder))
 
-		
+class TextField(GraphicComponent):
+	border = 2
+	def __init__(self, parent, x,y, width, font, size):
+		GraphicComponent.__init__(self, parent, x, y)
+		self.width = width
+		self.text = ''
+		self.font = pygame.font.SysFont(font, size)
+		self.height = self.font.size("")[1] + TextField.border*2
+
+	def draw(self, graphics, region):
+		graphics.fill(GUIStyle.color, (self.x, self.y, self.width, self.height) )
+		graphics.fill(GUIStyle.editableTextBG, (self.x + TextField.border, self.y+ TextField.border, self.width - TextField.border*2, self.height - TextField.border*2) )
