@@ -48,6 +48,28 @@ class Window(GraphicComponent):
 	def stateChange(self, param):
 		for c in self.child:
 			c.stateChange(param)
+
+class Button(GraphicComponent):
+	border = 2
+	def __init__(self, parent, x, y, width, font, size, text, rectangular):
+		GraphicComponent.__init__(self, parent, x, y)
+		self.width = width
+		self.font = pygame.font.SysFont(font, size)
+		self.height = self.font.size("")[1] + TextField.border*2
+		self.rectangular = rectangular
+	
+	def draw(self, graphics, region):		
+		if(self.rectangular):
+			pygame.draw.line(graphics, GUIStyle.lightColor, (self.x, self.y), (self.x + self.width- TextField.border, self.y), self.border)
+			pygame.draw.line(graphics, GUIStyle.lightColor, (self.x, self.y), (self.x, self.y + self.height- TextField.border), self.border)
+			pygame.draw.line(graphics, GUIStyle.darkColor, (self.x + self.width- TextField.border, self.y), (self.x + self.width- TextField.border, self.y + self.height- TextField.border), self.border)
+			pygame.draw.line(graphics, GUIStyle.darkColor, (self.x, self.y + self.height- TextField.border), (self.x + self.width- TextField.border, self.y + self.height- TextField.border), self.border)
+			graphics.fill(GUIStyle.editableTextBG, (self.x + Button.border, self.y+ TextField.border, self.width - Button.border*2, self.height - Button.border*2) )
+		else:
+			pygame.draw.ellipse(graphics, GUIStyle.color, (self.x, self.y, self.x + self.width, self.y + self.height), 1)	
+
+		render = self.font.render(self.text, False, GUIStyle.textColor)
+		graphics.blit(render, (self.x+2,self.y+2))		
 			
 class TextField(GraphicComponent):
 	border = 2

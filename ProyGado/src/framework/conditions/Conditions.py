@@ -24,6 +24,16 @@ class SpecificKeyCondition(Condition):
             return True
         return False
 
+class KeyReleaseCondition(Condition):
+    def __init__(self, key):
+        Condition.__init__(self)
+        self.key = key
+        
+    def evaluate(self, elapsed):
+        if InputState.upKeys.__contains__(self.key):
+            return True
+        return False
+
 class InsideCondition(Condition):
     def __init__(self):
         Condition.__init__(self)
