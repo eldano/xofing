@@ -44,8 +44,8 @@ class BounceAction(Action):
         if(signY == 0):
             signY = 1
         
-        bouncee.velX = resultingVector[0] * signX
-        bouncee.velY = resultingVector[1] * signY
+        self.bouncee.getComponent('move').velX = resultingVector[0] * signX
+        self.bouncee.getComponent('move').velY = resultingVector[1] * signY
 
 class ResetAction(Action):
     def  __init__(self, go):
