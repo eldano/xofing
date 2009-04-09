@@ -16,7 +16,6 @@ class Action:
 		self.gameObject = go
 	
 	def execute(self):
-		print "ejecutando"
 		co = self.gameObject.getComponent(self.family)
 		co.stateChange(self.transition)
 
