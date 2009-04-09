@@ -24,3 +24,11 @@ class SpecificKeyCondition(Condition):
             return True
         return False
 
+class InsideCondition(Condition):
+    def __init__(self):
+        Condition.__init__(self)
+        
+    def evaluate(self, elapsed):
+        for p in self.parameters:
+            bnd = p.getComponent(ComponentFamily.bounding)
+            bnd.inside(InputState.mousePos)
