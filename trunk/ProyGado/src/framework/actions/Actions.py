@@ -32,7 +32,7 @@ class BounceAction(Action):
             return 0
         
     def execute(self):
-        normalVector = vec2d(self.bouncer.getComponent('bounding').normalVector)
+        normalVector = vec2d(self.bouncer.getComponent('bounding').normal)
         incidentVector = vec2d(self.bouncee.getComponent('move').velX, self.bouncee.getComponent('move').velY)
         
         resultingVector = incidentVector - 2*(normalVector.dot(incidentVector))*normalVector
