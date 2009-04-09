@@ -41,4 +41,57 @@ class InsideCondition(Condition):
     def evaluate(self, elapsed):
         for p in self.parameters:
             bnd = p.getComponent(ComponentFamily.bounding)
-            bnd.inside(InputState.mousePos)
+            return bnd.inside(InputState.mousePos)
+
+class ButtonPressedCondition(Condition):
+    def __init__(self, button):
+        Condition.__init__(self)
+        self.button = button
+        
+    def evaluate(self, elapsed):
+        if self.button == 3 and InputState.mouseButtons[2] == 1:
+            return True
+        if self.button == 2 and InputState.mouseButtons[1] == 1:
+            return True
+        if self.button == 1 and InputState.mouseButtons[0] == 1:
+            return True
+        return False
+    
+class ButtonReleasedCondition(Condition):
+    def __init__(self, button):
+        Condition.__init__(self)
+        self.button = button
+        
+    def evaluate(self, elapsed):
+        if self.button == 3 and InputState.mouseButtons[2] == 1:
+            return True
+        if self.button == 2 and InputState.mouseButtons[1] == 1:
+            return True
+        if self.button == 1 and InputState.mouseButtons[0] == 1:
+            return True
+        return False
+    
+class ClickCondition(Condition):
+    def __init__(self, button):
+        Condition.__init__(self)
+        self.button = button
+        self.pressed = False
+        
+    def evaluate(self, elapsed):
+        if self.button == 3 and InputState.mouseButtons[2] == 1:
+            self.pressed = True
+        if self.button == 2 and InputState.mouseButtons[1] == 1:
+            self.pressed = True
+        if self.button == 1 and InputState.mouseButtons[0] == 1:
+            self.pressed = True
+            
+        if self.button == 3 and InputState.mouseButtons[2] == 0 and self.pressed:
+            self.pressed = False
+            return True
+        if self.button == 2 and InputState.mouseButtons[1] == 0 and self.pressed:
+            self.pressed = False
+            return True
+        if self.button == 1 and InputState.mouseButtons[0] == 0 and self.pressed:
+            self.pressed = False
+            return True
+        return False

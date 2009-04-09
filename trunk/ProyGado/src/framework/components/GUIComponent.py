@@ -74,10 +74,10 @@ class Button(GraphicComponent):
 			
 class TextField(GraphicComponent):
 	border = 2
-	def __init__(self, parent, x,y, width, font, size):
+	def __init__(self, parent, x,y, width, text, font, size):
 		GraphicComponent.__init__(self, parent, x, y)
 		self.width = width
-		self.text = 'hola'
+		self.text = text
 		self.font = pygame.font.SysFont(font, size)
 		self.height = self.font.size("")[1] + TextField.border*2
 

@@ -63,7 +63,7 @@ class BinaryCondition(Condition):
 	
 class AndCondition(BinaryCondition):
 	def __init__(self, c1, c2):
-		BinaryCondtiion.__init__(sefl, c1, c2)
+		BinaryCondition.__init__(self, c1, c2)
 	
 	def evaluate(self, elapsed):
 		return self.condition1.evaluate(elapsed) and self.condition2.evaluate(elapsed)
@@ -82,6 +82,7 @@ class ComponentFamily:
 	move = 'move'
 	gui = 'gui'
 	strValue = 'strValue'
+	reset = 'reset'
 	
 class Component:
 	family = ComponentFamily.generic
@@ -120,7 +121,7 @@ class BVComponent(Component):
 		self.height = height
 	
 	def inside(self, (x,y)):
-		return self.x < x and self.y < y and self.x + self.width > x and self.y + self.height > y
+		return self.x < x and self.y < y and (self.x + self.width) > x and (self.y + self.height) > y
 
 class GameObject:
 	def __init__(self):
@@ -140,6 +141,7 @@ class InputState:
 	downKeys = []
 	upKeys = []
 	mousePos = (0,0)
+	mouseButtons = (0,0,0)
 
 class Updater:
 	def __init__(self, go, family):
@@ -190,6 +192,7 @@ class GameLoop(GameObject):
 				self.__updateInputState(event)
 						
 			InputState.mousePos = pygame.mouse.get_pos()
+			InputState.mouseButtons = pygame.mouse.get_pressed()
 			
 			# Evaluate all conditions
 			for cond in self.conditions:

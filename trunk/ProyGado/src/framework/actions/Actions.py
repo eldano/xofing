@@ -46,3 +46,10 @@ class BounceAction(Action):
         
         bouncee.velX = resultingVector[0] * signX
         bouncee.velY = resultingVector[1] * signY
+
+class ResetAction(Action):
+    def  __init__(self, go):
+        Action.__init__(self, go, None, None)
+    
+    def execute(self):
+        self.gameObject.getComponent(ComponentFamily.reset).reset()
