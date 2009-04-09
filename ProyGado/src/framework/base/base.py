@@ -131,11 +131,26 @@ class GameObject:
 	
 	def getComponent(self, family):
 		return self.components[family]
+	
+	def sendUpdate(self, elapsed):
+		for up in self.components:
+			up.update(elapsed)
 
 class InputState:
 	downKeys = []
 	upKeys = []
 	mousePos = (0,0)
+
+class Updater:
+	def __init__(self, go, family):
+		self.go = go
+		self.family = family
+	
+	def sendUpdate(self, elapsed):
+		if(self.family != None):
+			go.getComponent(self.family).update(elapsed)
+		else:
+			go.sendUpdate(elapsed)
 	
 class GameLoop(GameObject):
 	def __init__(self, surface):
@@ -191,7 +206,7 @@ class GameLoop(GameObject):
 			pygame.display.flip()
 			
 			for tick in self.tickers:
-				tick.update(clock.tick())
+				tick.sendUpdate(clock.tick())
 		
 		return self.returnCode
 		
