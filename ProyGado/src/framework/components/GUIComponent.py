@@ -74,12 +74,16 @@ class Button(GraphicComponent):
 			
 class TextField(GraphicComponent):
 	border = 2
+	counter = 20
+	limit = 200
 	def __init__(self, parent, x,y, width, text, font, size):
 		GraphicComponent.__init__(self, parent, x, y)
 		self.width = width
 		self.text = text
 		self.font = pygame.font.SysFont(font, size)
 		self.height = self.font.size("")[1] + TextField.border*2
+		self.cursor = True
+		self.focus = True
 
 	def stateChange(self, keys):
 		for key in keys:
@@ -88,6 +92,14 @@ class TextField(GraphicComponent):
 					self.text = self.text[0:len(self.text)-1]
 				else:
 					self.text = self.text + chr(key)
+	
+	def update(self, elapsed):
+		if not self.focus:
+			return
+		self.counter = self.counter - 1
+		if(self.counter == 0):
+			self.cursor = not self.cursor
+			self.counter = self.limit
 
 	def draw(self, graphics, region):
 		pygame.draw.line(graphics, GUIStyle.lightColor, (self.x, self.y), (self.x + self.width- TextField.border, self.y), self.border)
@@ -97,6 +109,10 @@ class TextField(GraphicComponent):
 		pygame.draw.line(graphics, GUIStyle.darkColor, (self.x, self.y + self.height- TextField.border), (self.x + self.width- TextField.border, self.y + self.height- TextField.border), self.border)
 		#graphics.fill(GUIStyle.color, (self.x, self.y, self.width, self.height) )
 		graphics.fill(GUIStyle.editableTextBG, (self.x + TextField.border, self.y+ TextField.border, self.width - TextField.border*2, self.height - TextField.border*2) )
+		(tw, th) = self.font.size(self.text)
 		render = self.font.render(self.text, False, GUIStyle.textColor)
 		graphics.blit(render, (self.x+2,self.y+2))
+		
+		if(self.cursor and self.focus):
+			pygame.draw.line(graphics, GUIStyle.textColor, (self.x + tw+self.border, self.y + self.border), (self.x + tw+self.border, self.y + self.border + th), 2)
 

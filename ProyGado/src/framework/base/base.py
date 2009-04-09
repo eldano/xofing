@@ -150,9 +150,9 @@ class Updater:
 	
 	def sendUpdate(self, elapsed):
 		if(self.family != None):
-			go.getComponent(self.family).update(elapsed)
+			self.go.getComponent(self.family).update(elapsed)
 		else:
-			go.sendUpdate(elapsed)
+			self.go.sendUpdate(elapsed)
 	
 class GameLoop(GameObject):
 	def __init__(self, surface):
