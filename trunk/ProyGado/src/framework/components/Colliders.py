@@ -1,3 +1,5 @@
+from framework.base.base import *
+
 class VerticalCollider(BVComponent):
     
     x = None
@@ -44,6 +46,6 @@ class HorizontalCollider(BVComponent):
         ch = boundingBox.height
                 
         if (cx + cw > self.x and cx < self.x + self.width):
-            if(cy <= self.y and cy + ch > y):
+            if(cy <= self.y and cy + ch > self.y):
                 return True
         return False
