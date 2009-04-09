@@ -9,6 +9,8 @@ from framework.components.GraphicComponents import LabelComponent
 from framework.components.ValueComponents import StrValueComponent
 from framework.components.GUIComponent import *
 from framework.components.ResetComponent import ResetComponent
+from framework.components.MoveComponent import *
+from framework.conditions.Conditions import *
 
 class MyLevel(GameLevel):
 	def __init__(self, loop, surface):
@@ -19,6 +21,7 @@ class MyLevel(GameLevel):
 		go = GameObject()
 		window = Window(go2, 10, 10, 200, 200, "gui demo", "arial", 12)
 		textfield = TextField(None, 10, 10, 200, "arial",12)
+		move = LeftRightMoveComponent(go2, 0.5, 0.001)
 		window.addChild(textfield)
 		
 		myLabel = LabelComponent(go, 100,100, ComponentFamily.strValue, 'valor', "arial",20)
@@ -29,6 +32,17 @@ class MyLevel(GameLevel):
 		resetComponent.reset() #invoke directly the "reset" feature of this component
 		self.gameLoop.drawable.append(go2)
 		self.gameLoop.drawable.append(go)
+		
+		k1 = SpecificKeyCondition(115)
+		k2 = SpecificKeyCondition(97)
+		k3 = SpecificKeyCondition(32)
+		k1.addProxy(Action(go2, 1, ComponentFamily.move))
+		k2.addProxy(Action(go2, 2, ComponentFamily.move))
+		k3.addProxy(Action(go2, 0, ComponentFamily.move))
+		self.gameLoop.conditions.append(k1)
+		self.gameLoop.conditions.append(k2)
+		self.gameLoop.conditions.append(k3)
+		self.gameLoop.tickers.append(move)
 	
 	def run(self):
 		self.gameLoop.gameLoop()

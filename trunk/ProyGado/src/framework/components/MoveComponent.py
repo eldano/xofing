@@ -4,7 +4,7 @@ Created on 05/04/2009
 @author: Harold Selvaggi
 '''
 
-from framework.base.base import GraphicComponent
+from framework.base.base import *
 
 class LeftRightMoveComponent(Component):
 	family = ComponentFamily.move

@@ -16,6 +16,7 @@ class Action:
 		self.gameObject = go
 	
 	def execute(self):
+		print "ejecutando"
 		co = self.gameObject.getComponent(self.family)
 		co.stateChange(self.transition)
 
@@ -158,7 +159,10 @@ class GameLoop(GameObject):
 			self.endState = True
 			self.returnCode = -1		# The ser close by the window cross
 		elif event.type == pygame.KEYDOWN:
+			print "pressed"
+			print event.key
 			InputState.downKeys.append(event.key)
+			print InputState.downKeys
 		elif event.type == pygame.KEYUP:
 			InputState.upKeys.append(event.key)
 	
@@ -176,6 +180,8 @@ class GameLoop(GameObject):
 			for cond in self.conditions:
 				if cond.evaluate(self.elapsed):
 					cond.execute()
+			
+			self.graphics.fill((0,0,0))
 			
 			# Draw objects
 			for comp in self.drawable:
