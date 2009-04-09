@@ -118,6 +118,9 @@ class BVComponent(Component):
 		self.y = y
 		self.width = width
 		self.height = height
+	
+	def inside(self, (x,y)):
+		return self.x < x and self.y < y and self.x + self.width > x and self.y + self.height > y
 
 class GameObject:
 	def __init__(self):
@@ -132,9 +135,8 @@ class GameObject:
 class InputState:
 	downKeys = []
 	upKeys = []
-	mouseX = 0
-	mouseY = 0	
-
+	mousePos = (0,0)
+	
 class GameLoop(GameObject):
 	def __init__(self, surface):
 		self.drawable = []
@@ -171,6 +173,8 @@ class GameLoop(GameObject):
 			InputState.upKeys = []
 			for event in pygame.event.get():
 				self.__updateInputState(event)
+						
+			InputState.mousePos = pygame.mouse.get_pos()
 			
 			# Evaluate all conditions
 			for cond in self.conditions:
