@@ -5,7 +5,7 @@ Created on 01/04/2009
 '''
 
 from framework.base.base import *
-from framework.components.GraphicComponents import LabelComponent
+from framework.components.GraphicComponents import *
 from framework.components.ValueComponents import StrValueComponent
 from framework.components.GUIComponent import *
 from framework.components.ResetComponent import ResetComponent
@@ -18,38 +18,45 @@ class MyLevel(GameLevel):
 		GameLevel.__init__(self, loop, surface)
 	
 	def populate(self):
+		go4 = GameObject()
+		go3 = GameObject()
 		go2 = GameObject()
+		go1 = GameObject()
 		go = GameObject()
-		window = Window(go2, 10, 10, 200, 200, "gui demo", "arial", 12)
-		textfield = TextField(None, 10, 10, 200, "arial",12)
-		move = LeftRightMoveComponent(go2, 0.5, 0.001)
-		button = Button(None, 10, 40, 100, "sendME", "arial", 12, True)
-		window.addChild(textfield)
-		window.addChild(button)
+		textfield = TextField(go1, 90, 175, 40, "arial",20)
+		button = Button(go2, 160,130, 90, "Verificar", "arial", 20, True)
 		
 		myLabel = LabelComponent(go, 100,100, ComponentFamily.strValue, 'valor', "arial",20)
 		val = StrValueComponent(go)
-		#val.addAttr('valor', 123456)
+		val.addAttr('valor', 123456)
 		resetComponent = ResetComponent(go)
 		resetComponent.addAttrInit(ComponentFamily.strValue, 'valor', range(2,11))
 		resetComponent.reset() #invoke directly the "reset" feature of this component
+		
+		myLabel2 = LabelComponent(go3, 100,130, ComponentFamily.strValue, 'valor', "arial",20)
+		val = StrValueComponent(go3)
+		val.addAttr('valor', 123456)
+		resetComponent = ResetComponent(go3)
+		resetComponent.addAttrInit(ComponentFamily.strValue, 'valor', range(2,11))
+		resetComponent.reset() #invoke directly the "reset" feature of this component
+		
+		
+		line = Line(go4, 80, 160, 140, 160, (255,255,255))
+		
+		self.gameLoop.drawable.append(go4)
+		self.gameLoop.drawable.append(go3)
 		self.gameLoop.drawable.append(go2)
+		self.gameLoop.drawable.append(go1)
 		self.gameLoop.drawable.append(go)
 		
-		k1 = SpecificKeyCondition(275)
-		k2 = SpecificKeyCondition(276)
-		k3 = SpecificKeyCondition(32)
-		write = KeyboardCondition()
+		GUIStyle.editableTextBG = (0,0,0)
+		GUIStyle.textColor = (255,255,255)
+		GUIStyle.darkColor = (0,0,0)
+		GUIStyle.lightColor = (0,0,0)
 		
-		k1.addProxy(Action(go2, 1, ComponentFamily.move))
-		k2.addProxy(Action(go2, 2, ComponentFamily.move))
-		k3.addProxy(Action(go2, 0, ComponentFamily.move))
-		write.addProxy(KeyboardAction(go2, ComponentFamily.graphic))
-		self.gameLoop.conditions.append(k1)
-		self.gameLoop.conditions.append(k2)
-		self.gameLoop.conditions.append(k3)
+		write = KeyboardCondition()
+		write.addProxy(KeyboardAction(go1, ComponentFamily.graphic))
 		self.gameLoop.conditions.append(write)
-		self.gameLoop.tickers.append(move)
 	
 	def run(self):
 		self.gameLoop.gameLoop()
