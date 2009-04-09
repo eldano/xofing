@@ -66,6 +66,8 @@ class MyLevel(GameLevel):
 		boolean.addProxy(ResetAction(go))
 		
 		self.gameLoop.conditions.append(boolean)
+		
+		self.gameLoop.tickers.append(Updater(go1, ComponentFamily.graphic))
 	
 	def run(self):
 		self.gameLoop.gameLoop()
