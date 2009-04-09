@@ -44,6 +44,9 @@ class Image(GraphicComponent):
 	def draw(self, graphics, region):
 		pygame.display.get_surface().blit(self.image, (self.x,self.y,self.w,self.h))
 
+	def update(self, dt):
+		pass
+
 class Line(GraphicComponent):
 	def __init__(self, parent, x, y, x2, y2, color):
 		GraphicComponent.__init__(self, parent, x, y)
