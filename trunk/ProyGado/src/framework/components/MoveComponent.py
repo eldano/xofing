@@ -46,6 +46,7 @@ class LeftRightMoveComponent(Component):
 		self.state = transition
 
 class XYMovement(Component):
+	family = ComponentFamily.move
 	def __init__(self, parent):
 		Component.__init__(self, parent)
 		self.velX = 0
