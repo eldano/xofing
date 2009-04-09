@@ -45,6 +45,10 @@ class Window(GraphicComponent):
 			c.x = c.x - self.x
 			c.y = c.y - self.y - th - 2*self.titleBorder
 
+	def stateChange(self, param):
+		for c in self.child:
+			c.stateChange(param)
+			
 class TextField(GraphicComponent):
 	border = 2
 	def __init__(self, parent, x,y, width, font, size):
@@ -53,6 +57,14 @@ class TextField(GraphicComponent):
 		self.text = 'hola'
 		self.font = pygame.font.SysFont(font, size)
 		self.height = self.font.size("")[1] + TextField.border*2
+
+	def stateChange(self, keys):
+		for key in keys:
+			if(key < 255):
+				if(key == 8):
+					self.text = self.text[0:len(self.text)-1]
+				else:
+					self.text = self.text + chr(key)
 
 	def draw(self, graphics, region):
 		pygame.draw.line(graphics, GUIStyle.lightColor, (self.x, self.y), (self.x + self.width- TextField.border, self.y), self.border)

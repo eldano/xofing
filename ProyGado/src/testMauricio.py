@@ -11,6 +11,7 @@ from framework.components.GUIComponent import *
 from framework.components.ResetComponent import ResetComponent
 from framework.components.MoveComponent import *
 from framework.conditions.Conditions import *
+from framework.actions.Actions import *
 
 class MyLevel(GameLevel):
 	def __init__(self, loop, surface):
@@ -33,15 +34,19 @@ class MyLevel(GameLevel):
 		self.gameLoop.drawable.append(go2)
 		self.gameLoop.drawable.append(go)
 		
-		k1 = SpecificKeyCondition(115)
-		k2 = SpecificKeyCondition(97)
+		k1 = SpecificKeyCondition(275)
+		k2 = SpecificKeyCondition(276)
 		k3 = SpecificKeyCondition(32)
+		write = KeyboardCondition()
+		
 		k1.addProxy(Action(go2, 1, ComponentFamily.move))
 		k2.addProxy(Action(go2, 2, ComponentFamily.move))
 		k3.addProxy(Action(go2, 0, ComponentFamily.move))
+		write.addProxy(KeyboardAction(go2, ComponentFamily.graphic))
 		self.gameLoop.conditions.append(k1)
 		self.gameLoop.conditions.append(k2)
 		self.gameLoop.conditions.append(k3)
+		self.gameLoop.conditions.append(write)
 		self.gameLoop.tickers.append(move)
 	
 	def run(self):
