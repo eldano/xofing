@@ -135,7 +135,7 @@ class GameObject:
 	
 	def sendUpdate(self, elapsed):
 		for up in self.components:
-			up.update(elapsed)
+			self.components[up].update(elapsed)
 
 class InputState:
 	downKeys = []
