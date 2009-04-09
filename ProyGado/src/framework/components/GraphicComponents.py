@@ -42,7 +42,7 @@ class Image(GraphicComponent):
 			self.h = h
 	
 	def draw(self, graphics, region):
-		screen.blit(self.image, (self.x,self.y,w,h))
+		pygame.display.get_surface().blit(self.image, (self.x,self.y,self.w,self.h))
 
 class Line(GraphicComponent):
 	def __init__(self, parent, x, y, x2, y2, color):
