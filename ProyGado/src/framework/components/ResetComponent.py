@@ -5,9 +5,10 @@ Created on 05/04/2009
 '''
 
 import random
-from framework.base.base import Component
+from framework.base.base import *
  
 class ResetComponent(Component):
+	family = ComponentFamily.reset
 	'''
 	classdocs: TODO: documentar
 	'''

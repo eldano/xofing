@@ -23,8 +23,9 @@ class MyLevel(GameLevel):
 		go2 = GameObject()
 		go1 = GameObject()
 		go = GameObject()
-		textfield = TextField(go1, 90, 175, 40, "arial",20)
+		textfield = TextField(go1, 90, 175, 40, "0", "arial",20)
 		button = Button(go2, 160,130, 90, "Verificar", "arial", 20, True)
+		BVComponent(go2, 160,130,90,button.height)
 		
 		myLabel = LabelComponent(go, 100,100, ComponentFamily.strValue, 'valor', "arial",20)
 		val = StrValueComponent(go)
@@ -57,6 +58,14 @@ class MyLevel(GameLevel):
 		write = KeyboardCondition()
 		write.addProxy(KeyboardAction(go1, ComponentFamily.graphic))
 		self.gameLoop.conditions.append(write)
+		
+		inside = InsideCondition()
+		inside.addParameter(go2)
+		boolean = AndCondition(inside, ClickCondition(1))
+		boolean.addProxy(ResetAction(go3))
+		boolean.addProxy(ResetAction(go))
+		
+		self.gameLoop.conditions.append(boolean)
 	
 	def run(self):
 		self.gameLoop.gameLoop()
