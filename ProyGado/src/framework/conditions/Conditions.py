@@ -21,7 +21,6 @@ class SpecificKeyCondition(Condition):
         
     def evaluate(self, elapsed):
         if InputState.downKeys.__contains__(self.key):
-            print "True"
             return True
         return False
 
