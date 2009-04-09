@@ -158,10 +158,7 @@ class GameLoop(GameObject):
 			self.endState = True
 			self.returnCode = -1		# The ser close by the window cross
 		elif event.type == pygame.KEYDOWN:
-			print "pressed"
-			print event.key
 			InputState.downKeys.append(event.key)
-			print InputState.downKeys
 		elif event.type == pygame.KEYUP:
 			InputState.upKeys.append(event.key)
 	
