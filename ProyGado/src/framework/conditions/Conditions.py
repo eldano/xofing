@@ -20,7 +20,8 @@ class SpecificKeyCondition(Condition):
         self.key = key
         
     def evaluate(self, elapsed):
-        if InputState.downKeys.count(self.key) > 0:
+        if InputState.downKeys.__contains__(self.key):
+            print "True"
             return True
         return False
 
