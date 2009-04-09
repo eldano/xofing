@@ -17,7 +17,10 @@ class MyLevel(GameLevel):
 	def populate(self):
 		go2 = GameObject()
 		go = GameObject()
-		textfield = TextField(go2, 10, 10, 200, "arial",12)
+		window = Window(go2, 10, 10, 200, 200, "gui demo", "arial", 12)
+		textfield = TextField(None, 10, 10, 200, "arial",12)
+		window.addChild(textfield)
+		
 		myLabel = LabelComponent(go, 100,100, ComponentFamily.strValue, 'valor', "arial",20)
 		val = StrValueComponent(go)
 		#val.addAttr('valor', 123456)

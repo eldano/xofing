@@ -11,9 +11,12 @@ import os
 
 class GUIStyle:
 	color = (150,150,150)
+	lightColor = (180, 200, 200)
+	darkColor = (110, 110, 110)
 	titleColor = (150,150,230)
 	textColor = (0,0,0)
 	editableTextBG = (255,255,255)
+	font = 'arial'
 
 class Window(GraphicComponent):
 	def __init__(self, parent, x, y, width, height, title, font, size):
@@ -21,10 +24,13 @@ class Window(GraphicComponent):
 		self.title = title
 		self.width = width
 		self.height = height
-		self.titleBorder = 2
-		
+		self.titleBorder = 2		
 		fontFullFileName = pygame.font.match_font(font)
 		self.font = pygame.font.Font(fontFullFileName, size)
+		self.child = []
+	
+	def addChild(self, child):
+		self.child.append(child)
 		
 	def draw(self, graphics, region):
 		(tw, th) = self.font.size(self.title)
@@ -32,16 +38,30 @@ class Window(GraphicComponent):
 		graphics.fill(GUIStyle.titleColor, (self.x + self.titleBorder, self.y+self.titleBorder, self.width- 2*self.titleBorder, th + 2*self.titleBorder))
 		render = self.font.render(self.title, False, GUIStyle.textColor)
 		graphics.blit(render, (self.x+2*self.titleBorder,self.y+2*self.titleBorder))
+		for c in self.child:
+			c.x = c.x + self.x
+			c.y = c.y + self.y + th + 2*self.titleBorder
+			c.draw(graphics, region)
+			c.x = c.x - self.x
+			c.y = c.y - self.y - th - 2*self.titleBorder
 
 class TextField(GraphicComponent):
 	border = 2
 	def __init__(self, parent, x,y, width, font, size):
 		GraphicComponent.__init__(self, parent, x, y)
 		self.width = width
-		self.text = ''
+		self.text = 'hola'
 		self.font = pygame.font.SysFont(font, size)
 		self.height = self.font.size("")[1] + TextField.border*2
 
 	def draw(self, graphics, region):
-		graphics.fill(GUIStyle.color, (self.x, self.y, self.width, self.height) )
+		pygame.draw.line(graphics, GUIStyle.lightColor, (self.x, self.y), (self.x + self.width- TextField.border, self.y), self.border)
+		pygame.draw.line(graphics, GUIStyle.lightColor, (self.x, self.y), (self.x, self.y + self.height- TextField.border), self.border)
+		
+		pygame.draw.line(graphics, GUIStyle.darkColor, (self.x + self.width- TextField.border, self.y), (self.x + self.width- TextField.border, self.y + self.height- TextField.border), self.border)
+		pygame.draw.line(graphics, GUIStyle.darkColor, (self.x, self.y + self.height- TextField.border), (self.x + self.width- TextField.border, self.y + self.height- TextField.border), self.border)
+		#graphics.fill(GUIStyle.color, (self.x, self.y, self.width, self.height) )
 		graphics.fill(GUIStyle.editableTextBG, (self.x + TextField.border, self.y+ TextField.border, self.width - TextField.border*2, self.height - TextField.border*2) )
+		render = self.font.render(self.text, False, GUIStyle.textColor)
+		graphics.blit(render, (self.x+2,self.y+2))
+
