@@ -33,7 +33,7 @@ class Condition:
 	def removeParameter(self, go):
 		self.parameters.remove(go) 
 
-	def evaluate(self, keyState, mouseState, elapsed):
+	def evaluate(self, elapsed):
 		None
 	
 	def execute(self):
@@ -44,7 +44,7 @@ class TrueCondition(Condition):
 	def __init__(self):
 		Condition.__init__(self)
 	
-	def evaluate(self, keyState, mouseState, elapsed):
+	def evaluate(self, elapsed):
 		return True
 
 class NotCondition(Condition):
@@ -52,8 +52,8 @@ class NotCondition(Condition):
 		Condition.__init__(self)
 		self.condition1 = c1
 		
-	def evaluate(self, keyState, mouseState, elapsed):
-		return not self.condition1.evaluate(keyState, mouseState, elapsed)
+	def evaluate(self, elapsed):
+		return not self.condition1.evaluate(elapsed)
 
 class BinaryCondition(Condition):
 	def __init__(self, c1, c2):
@@ -65,15 +65,15 @@ class AndCondition(BinaryCondition):
 	def __init__(self, c1, c2):
 		BinaryCondtiion.__init__(sefl, c1, c2)
 	
-	def evaluate(self, keyState, mouseState, elapsed):
-		return self.condition1.evaluate(keyState, mouseState, elapsed) and self.condition2.evaluate(keyState, mouseState, elapsed)
+	def evaluate(self, elapsed):
+		return self.condition1.evaluate(elapsed) and self.condition2.evaluate(elapsed)
 
 class OrCondition(BinaryCondition):
 	def __init__(self, c1, c2):
 		BinaryCondtiion.__init__(sefl, c1, c2)
 	
-	def evaluate(self, keyState, mouseState, elapsed):
-		return self.condition1.evaluate(keyState, mouseState, elapsed) or self.condition2.evaluate(keyState, mouseState, elapsed)
+	def evaluate(self, elapsed):
+		return self.condition1.evaluate(elapsed) or self.condition2.evaluate(elapsed)
 
 class ComponentFamily:
 	generic = 'generic'
@@ -87,7 +87,8 @@ class Component:
 	family = ComponentFamily.generic
 	def __init__(self, gameObjectParent):
 		self.parent = gameObjectParent
-		gameObjectParent.addComponent(self) #do that after setting the "family" attribute
+		if gameObjectParent != None:
+			gameObjectParent.addComponent(self) #do that after setting the "family" attribute
 		
 	
 	def update(self, elapsed):
@@ -129,11 +130,10 @@ class GameObject:
 		return self.components[family]
 
 class InputState:
-	keyboardState = []
+	downKeys = []
+	upKeys = []
 	mouseX = 0
-	mouseY = 0
-	newKeys = []
-	
+	mouseY = 0	
 
 class GameLoop(GameObject):
 	def __init__(self, surface):
@@ -158,35 +158,23 @@ class GameLoop(GameObject):
 			self.endState = True
 			self.returnCode = -1		# The ser close by the window cross
 		elif event.type == pygame.KEYDOWN:
-			if event.key == 275: # left$
-				self.keyState = self.keyState | 8
-			if event.key == 274: # down
-				self.keyState = self.keyState | 1
-			if event.key == 276: # right
-				self.keyState = self.keyState | 4
-			if event.key == 273: # top
-				self.keyState = self.keyState | 2
+			InputState.downKeys.append(event.key)
 		elif event.type == pygame.KEYUP:
-			if event.key == 275:
-				self.keyState = self.keyState & 7
-			if event.key == 274:
-				self.keyState = self.keyState & 14
-			if event.key == 276:
-				self.keyState = self.keyState & 11
-			if event.key == 273:
-				self.keyState = self.keyState & 13
+			InputState.upKeys.append(event.key)
 	
 	def gameLoop(self):
 		clock = pygame.time.Clock()
 		while not self.endState:
 			self.elapsed = clock.tick() # miliseconds count
 			# Update input state
+			InputState.downKeys = []
+			InputState.upKeys = []
 			for event in pygame.event.get():
 				self.__updateInputState(event)
 			
 			# Evaluate all conditions
 			for cond in self.conditions:
-				if cond.evaluate(self.keyState, self.mouseState, self.elapsed):
+				if cond.evaluate(self.elapsed):
 					cond.execute()
 			
 			# Draw objects
