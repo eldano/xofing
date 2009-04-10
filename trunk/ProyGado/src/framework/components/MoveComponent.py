@@ -40,6 +40,9 @@ class LeftRightMoveComponent(Component):
 		xIncrement = self.velocity*dt
 		gr = self.parent.getComponent(ComponentFamily.graphic)
 		gr.x = gr.x + xIncrement
+		bv = self.parent.getComponent(ComponentFamily.bounding)
+		if bv != None:
+			bv.x = bv.off_x + gr.x
 		
 
 	def stateChange(self, transition):
@@ -56,3 +59,7 @@ class XYMovement(Component):
 		gr = self.parent.getComponent(ComponentFamily.graphic)
 		gr.x = gr.x + dt*self.velX
 		gr.y = gr.y + dt*self.velY
+		bv = self.parent.getComponent(ComponentFamily.bounding)
+		if bv != None:
+			bv.x = bv.off_x + gr.x
+			bv.y = bv.off_y + gr.y
