@@ -19,37 +19,43 @@ class TestDanielLevel(GameLevel):
         ballMovementComponent = XYMovement(ballGO)
         ballMovementComponent.velX = 0.05
         ballMovementComponent.velY = 0.2
-        ballBVComponent = BVComponent(ballGO, 0, 0, 20, 20)
+        ballBVComponent = AABBComponent(ballGO, 0, 0, 20, 20)
         
         pad1GO = GameObject('pad1')
         pad1GraphicComponent = Image(pad1GO, '../data/pad.PNG', 300, 450)
         pad1MovementComponent = LeftRightMoveComponent(pad1GO, 0.5, 0.001)
-        pad1BVComponent = HorizontalCollider(pad1GO, 0, 10, 100, 10, (0,1) )
+        pad1BVComponent = HorizontalCollider(pad1GO, 0, 450, 100, (0,-1) )
+        pad1GO.addComponent(pad1BVComponent)
         
         pad2GO = GameObject('pad2')
         pad2GraphicComponent = Image(pad2GO, '../data/pad.PNG', 300, 30)
         pad2MovementComponent = LeftRightMoveComponent(pad2GO, 0.5, 0.001)
-        pad2BVComponent = HorizontalCollider(pad2GO, 0, 460, 100, 10, (0,-1) )
+        pad2BVComponent = HorizontalCollider(pad2GO, 0, 30, 100, (0,1) )
+        pad2GO.addComponent(pad2BVComponent)
         
         floorGO = GameObject('floor')
-        floorBVComponent = HorizontalCollider(floorGO, 0, 480, 640, 1, (0,-1))
+        floorBVComponent = HorizontalCollider(floorGO, 0, 480, 640, (0,-1))
         floorCollisionCondition = CollisionCondition(floorGO, ballGO)
         floorCollisionCondition.addProxy(BounceAction(ballGO, floorGO))
+        floorGO.addComponent(floorBVComponent)
         
         roofGO = GameObject('roof')
-        roofBVComponent = HorizontalCollider(roofGO, 0, 0, 640, 1, (0,1))
+        roofBVComponent = HorizontalCollider(roofGO, 0, 0, 640, (0,1))
         roofCollisionCondition = CollisionCondition(roofGO, ballGO)
         roofCollisionCondition.addProxy(BounceAction(ballGO, roofGO))
+        roofGO.addComponent(roofBVComponent)
         
         leftWallGO = GameObject('leftWall')
-        leftWallBVComponent = VerticalCollider(leftWallGO, 0, 0, 1, 480, (1,0))
+        leftWallBVComponent = VerticalCollider(leftWallGO, 0, 0, 480, (1,0))
         leftWallCollisionCondition = CollisionCondition(leftWallGO, ballGO)
         leftWallCollisionCondition.addProxy(BounceAction(ballGO, leftWallGO))
+        leftWallGO.addComponent(leftWallBVComponent)
         
         rightWallGO = GameObject('rightWall')
-        rightWallBVComponent = VerticalCollider(rightWallGO, 640, 0, 1, 480, (-1,0))
+        rightWallBVComponent = VerticalCollider(rightWallGO, 640, 0, 480, (-1,0))
         rightWallCollisionCondition = CollisionCondition(rightWallGO, ballGO)
         rightWallCollisionCondition.addProxy(BounceAction(ballGO, rightWallGO))
+        rightWallGO.addComponent(rightWallBVComponent)
         
         pad1CollisionCondition = CollisionCondition(pad1GO, ballGO)
         pad1CollisionCondition.addProxy(BounceAction(ballGO, pad1GO))
