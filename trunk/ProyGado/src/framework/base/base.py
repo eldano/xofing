@@ -111,18 +111,6 @@ class GraphicComponent(Component):
 	def draw(self, graphics, region):
 		None
 
-class BVComponent(Component):
-	family = ComponentFamily.bounding
-	def __init__(self, parent, x, y, width, height):
-		Component.__init__(self, parent)
-		self.x = x  # Change to the native implementation
-		self.y = y
-		self.width = width
-		self.height = height
-	
-	def inside(self, (x,y)):
-		return self.x < x and self.y < y and (self.x + self.width) > x and (self.y + self.height) > y
-
 class GameObject:
 	def __init__(self, name = None):
 		self.components = {}
@@ -132,8 +120,11 @@ class GameObject:
 		self.components[component.family] = component
 	
 	def getComponent(self, family):
-		return self.components[family]
-	
+		if self.components.has_key(family):
+			return self.components[family]
+		else:
+			return None
+
 	def sendUpdate(self, elapsed):
 		for up in self.components:
 			self.components[up].update(elapsed)
