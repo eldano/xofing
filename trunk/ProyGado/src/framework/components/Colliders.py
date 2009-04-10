@@ -1,14 +1,39 @@
 from framework.base.base import *
 
-class VerticalCollider(BVComponent):
-    
+class AABBComponent(Component):
+    family = ComponentFamily.bounding
     x = None
     y = None
+    off_x = None
+    off_y = None
+    height = None
+    width = None
+    
+    def __init__(self, parent, x, y, width, height):
+        Component.__init__(self, parent)
+        self.off_x = x
+        self.off_y = y
+        self.x = x
+        self.y = y
+        self.width = width
+        self.height = height
+    
+    def inside(self, (x,y)):
+        return self.x < x and self.y < y and (self.x + self.width) > x and (self.y + self.height) > y
+
+class VerticalCollider(Component):
+    family = ComponentFamily.bounding
+    x = None
+    y = None
+    off_x = None
+    off_y = None
     height = None
     normal = None
     
-    def __init__(self, parent, x, y, width, height, normal):
-        BVComponent.__init__(self, parent, x, y, width, height)
+    def __init__(self, parent, x, y, height, normal):
+        Component.__init__(self, parent)
+        self.off_x = x
+        self.off_y = y
         self.x = x
         self.y = y
         self.height = height
@@ -25,15 +50,19 @@ class VerticalCollider(BVComponent):
                 return True
         return False
 
-class HorizontalCollider(BVComponent):
-    
+class HorizontalCollider(Component):
+    family = ComponentFamily.bounding
     x = None
     y = None
+    off_x = None
+    off_y = None
     width = None
     normal = None
     
-    def __init__(self, parent, x, y, width, height, normal):
-        BVComponent.__init__(self, parent, x, y, width, height)
+    def __init__(self, parent, x, y, width, normal):
+        Component.__init__(self, parent)
+        self.off_x = x
+        self.off_y = y
         self.x = x
         self.y = y
         self.width = width
