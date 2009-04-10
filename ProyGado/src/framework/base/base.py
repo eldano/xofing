@@ -209,7 +209,7 @@ class GameLoop(GameObject):
 			pygame.display.flip()
 			
 			for tick in self.tickers:
-				tick.sendUpdate(clock.tick())
+				tick.sendUpdate(self.elapsed)
 		
 		return self.returnCode
 		
