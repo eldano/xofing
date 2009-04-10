@@ -124,8 +124,9 @@ class BVComponent(Component):
 		return self.x < x and self.y < y and (self.x + self.width) > x and (self.y + self.height) > y
 
 class GameObject:
-	def __init__(self):
+	def __init__(self, name = None):
 		self.components = {}
+		self.name = name
 	
 	def addComponent(self, component):
 		self.components[component.family] = component
