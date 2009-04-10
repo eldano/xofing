@@ -14,40 +14,48 @@ class TestDanielLevel(GameLevel):
         GameLevel.__init__(self, loop, surface)
     
     def populate(self):
-        ballGO = GameObject()
+        ballGO = GameObject('bola')
         ballGraphicComponent = Image(ballGO, '../data/bola.PNG', 300, 200)
         ballMovementComponent = XYMovement(ballGO)
         ballMovementComponent.velX = 0.05
         ballMovementComponent.velY = 0.2
         ballBVComponent = BVComponent(ballGO, 0, 0, 20, 20)
         
-        pad1GO = GameObject()
+        pad1GO = GameObject('pad1')
         pad1GraphicComponent = Image(pad1GO, '../data/pad.PNG', 300, 450)
         pad1MovementComponent = LeftRightMoveComponent(pad1GO, 0.5, 0.001)
+        pad1BVComponent = HorizontalCollider(pad1GO, 0, 10, 100, 10, (0,1) )
         
-        pad2GO = GameObject()
+        pad2GO = GameObject('pad2')
         pad2GraphicComponent = Image(pad2GO, '../data/pad.PNG', 300, 30)
         pad2MovementComponent = LeftRightMoveComponent(pad2GO, 0.5, 0.001)
+        pad2BVComponent = HorizontalCollider(pad2GO, 0, 460, 100, 10, (0,-1) )
         
-        floorGO = GameObject()
+        floorGO = GameObject('floor')
         floorBVComponent = HorizontalCollider(floorGO, 0, 480, 640, 1, (0,-1))
         floorCollisionCondition = CollisionCondition(floorGO, ballGO)
         floorCollisionCondition.addProxy(BounceAction(ballGO, floorGO))
         
-        roofGO = GameObject()
+        roofGO = GameObject('roof')
         roofBVComponent = HorizontalCollider(roofGO, 0, 0, 640, 1, (0,1))
         roofCollisionCondition = CollisionCondition(roofGO, ballGO)
         roofCollisionCondition.addProxy(BounceAction(ballGO, roofGO))
         
-        leftWallGO = GameObject()
+        leftWallGO = GameObject('leftWall')
         leftWallBVComponent = VerticalCollider(leftWallGO, 0, 0, 1, 480, (1,0))
         leftWallCollisionCondition = CollisionCondition(leftWallGO, ballGO)
         leftWallCollisionCondition.addProxy(BounceAction(ballGO, leftWallGO))
         
-        rightWallGO = GameObject()
+        rightWallGO = GameObject('rightWall')
         rightWallBVComponent = VerticalCollider(rightWallGO, 640, 0, 1, 480, (-1,0))
         rightWallCollisionCondition = CollisionCondition(rightWallGO, ballGO)
         rightWallCollisionCondition.addProxy(BounceAction(ballGO, rightWallGO))
+        
+        pad1CollisionCondition = CollisionCondition(pad1GO, ballGO)
+        pad1CollisionCondition.addProxy(BounceAction(ballGO, pad1GO))
+        
+        pad2CollisionCondition = CollisionCondition(pad2GO, ballGO)
+        pad2CollisionCondition.addProxy(BounceAction(ballGO, pad2GO))
         
         leftArrowPressKeyCondition = SpecificKeyCondition(275)
         leftArrowReleaseKeyCondition = KeyReleaseCondition(275)
@@ -60,6 +68,22 @@ class TestDanielLevel(GameLevel):
         
         rightArrowPressKeyCondition.addProxy(Action(pad1GO, 2, ComponentFamily.move))
         rightArrowReleaseKeyCondition.addProxy(Action(pad1GO, 0, ComponentFamily.move))
+        
+        ##
+        
+        aKeyPressCondition = SpecificKeyCondition(97)
+        aKeyReleaseCondition = KeyReleaseCondition(97)
+        
+        dKeyPressCondition = SpecificKeyCondition(100)
+        dKeyReleaseCondition = KeyReleaseCondition(100)
+        
+        aKeyPressCondition.addProxy(Action(pad2GO, 2, ComponentFamily.move))
+        aKeyReleaseCondition.addProxy(Action(pad2GO, 0, ComponentFamily.move))
+        
+        dKeyPressCondition.addProxy(Action(pad2GO, 1, ComponentFamily.move))
+        dKeyReleaseCondition.addProxy(Action(pad2GO, 0, ComponentFamily.move))
+        
+        #Agrego elementos al juego
         
         self.gameLoop.drawable.append(ballGO)
         self.gameLoop.tickers.append(ballGO)
@@ -78,6 +102,14 @@ class TestDanielLevel(GameLevel):
         self.gameLoop.conditions.append(leftArrowReleaseKeyCondition)
         self.gameLoop.conditions.append(rightArrowPressKeyCondition)
         self.gameLoop.conditions.append(rightArrowReleaseKeyCondition)
+        
+        self.gameLoop.conditions.append(aKeyPressCondition)
+        self.gameLoop.conditions.append(aKeyReleaseCondition)
+        self.gameLoop.conditions.append(dKeyPressCondition)
+        self.gameLoop.conditions.append(dKeyReleaseCondition)
+        
+        self.gameLoop.conditions.append(pad1CollisionCondition)
+        self.gameLoop.conditions.append(pad2CollisionCondition)
                 
     def run(self):
         self.gameLoop.gameLoop()
