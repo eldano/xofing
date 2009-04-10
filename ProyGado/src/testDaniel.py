@@ -49,17 +49,36 @@ class TestDanielLevel(GameLevel):
         rightWallCollisionCondition = CollisionCondition(rightWallGO, ballGO)
         rightWallCollisionCondition.addProxy(BounceAction(ballGO, rightWallGO))
         
+        leftArrowPressKeyCondition = SpecificKeyCondition(275)
+        leftArrowReleaseKeyCondition = KeyReleaseCondition(275)
+        
+        rightArrowPressKeyCondition = SpecificKeyCondition(276)
+        rightArrowReleaseKeyCondition = KeyReleaseCondition(276)
+        
+        leftArrowPressKeyCondition.addProxy(Action(pad1GO, 1, ComponentFamily.move))
+        leftArrowReleaseKeyCondition.addProxy(Action(pad1GO, 0, ComponentFamily.move))
+        
+        rightArrowPressKeyCondition.addProxy(Action(pad1GO, 2, ComponentFamily.move))
+        rightArrowReleaseKeyCondition.addProxy(Action(pad1GO, 0, ComponentFamily.move))
+        
         self.gameLoop.drawable.append(ballGO)
         self.gameLoop.tickers.append(ballGO)
         
         self.gameLoop.drawable.append(pad1GO)
         self.gameLoop.drawable.append(pad2GO)
+        self.gameLoop.tickers.append(pad1GO)
+        self.gameLoop.tickers.append(pad2GO)
         
         self.gameLoop.conditions.append(floorCollisionCondition)
         self.gameLoop.conditions.append(roofCollisionCondition)
         self.gameLoop.conditions.append(leftWallCollisionCondition)
         self.gameLoop.conditions.append(rightWallCollisionCondition)
         
+        self.gameLoop.conditions.append(leftArrowPressKeyCondition)
+        self.gameLoop.conditions.append(leftArrowReleaseKeyCondition)
+        self.gameLoop.conditions.append(rightArrowPressKeyCondition)
+        self.gameLoop.conditions.append(rightArrowReleaseKeyCondition)
+                
     def run(self):
         self.gameLoop.gameLoop()
 
