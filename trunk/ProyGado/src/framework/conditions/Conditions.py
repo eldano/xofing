@@ -103,6 +103,4 @@ class CollisionCondition(Condition):
         self.go2 = go2
     
     def evaluate(self, elapsed):
-        self.go2.getComponent(ComponentFamily.bounding).x = self.go2.getComponent(ComponentFamily.graphic).x
-        self.go2.getComponent(ComponentFamily.bounding).y = self.go2.getComponent(ComponentFamily.graphic).y
         return self.go1.getComponent(ComponentFamily.bounding).checkCollision(self.go2.getComponent(ComponentFamily.bounding))
