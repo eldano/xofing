@@ -21,6 +21,10 @@ class TestDanielLevel(GameLevel):
         ballMovementComponent.velY = 0.2
         ballBVComponent = AABBComponent(ballGO, 0, 0, 20, 20)
         
+        ballResetComponent = ResetComponent(ballGO)
+        ballResetComponent.addAttrInit(ComponentFamily.graphic, 'x', [300])
+        ballResetComponent.addAttrInit(ComponentFamily.graphic, 'y', [200])
+        
         pad1GO = GameObject('pad1')
         pad1GraphicComponent = Image(pad1GO, '../data/pad.PNG', 300, 450)
         pad1MovementComponent = LeftRightMoveComponent(pad1GO, 0.5, 0.001)
@@ -36,13 +40,15 @@ class TestDanielLevel(GameLevel):
         floorGO = GameObject('floor')
         floorBVComponent = HorizontalCollider(floorGO, 0, 480, 640, (0,-1))
         floorCollisionCondition = CollisionCondition(floorGO, ballGO)
-        floorCollisionCondition.addProxy(BounceAction(ballGO, floorGO))
+        floorCollisionCondition.addProxy(ResetAction(ballGO))
+        #floorCollisionCondition.addProxy(BounceAction(ballGO, floorGO))
         floorGO.addComponent(floorBVComponent)
         
         roofGO = GameObject('roof')
         roofBVComponent = HorizontalCollider(roofGO, 0, 0, 640, (0,1))
         roofCollisionCondition = CollisionCondition(roofGO, ballGO)
-        roofCollisionCondition.addProxy(BounceAction(ballGO, roofGO))
+        roofCollisionCondition.addProxy(ResetAction(ballGO))
+        #roofCollisionCondition.addProxy(BounceAction(ballGO, roofGO))
         roofGO.addComponent(roofBVComponent)
         
         leftWallGO = GameObject('leftWall')
