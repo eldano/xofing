@@ -53,3 +53,14 @@ class ResetAction(Action):
     
     def execute(self):
         self.gameObject.getComponent(ComponentFamily.reset).reset()
+
+class SetValueAction(Action):
+    def __init__(self, go, attr, val):
+        Action.__init__(self, go, None, None)
+        self.value = val
+        self.attribute = attr
+    
+    def execute(self):
+        obj = self.gameObject.getComponent(ComponentFamily.strValue)
+        obj.addAttr(self.attribute, self.value)
+        

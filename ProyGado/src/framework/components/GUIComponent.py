@@ -58,6 +58,11 @@ class Button(GraphicComponent):
 		self.height = self.font.size("")[1] + TextField.border*2
 		self.rectangular = rectangular
 		self.text = text
+		self.clicked = False
+		
+	def stateChange(self, transition):
+		self.clicked = not self.clicked
+		print self.clicked
 	
 	def draw(self, graphics, region):		
 		if(self.rectangular):

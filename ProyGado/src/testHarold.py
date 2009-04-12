@@ -12,20 +12,28 @@ from framework.components.ResetComponent import ResetComponent
 from framework.components.MoveComponent import *
 from framework.conditions.Conditions import *
 from framework.actions.Actions import *
+from framework.expressions.Expressions import *
+from framework.components.Colliders import *
 
 class MyLevel(GameLevel):
 	def __init__(self, loop, surface):
 		GameLevel.__init__(self, loop, surface)
 	
 	def populate(self):
+		go5 = GameObject()
 		go4 = GameObject()
 		go3 = GameObject()
 		go2 = GameObject()
 		go1 = GameObject()
 		go = GameObject()
+
+		result = LabelComponent(go5, 20,20, ComponentFamily.strValue, 'valor', "arial",20)
+		val = StrValueComponent(go5)
+		val.addAttr('valor', 'Jugando')
+		
 		textfield = TextField(go1, 90, 175, 40, "0", "arial",20)
 		button = Button(go2, 160,130, 90, "Verificar", "arial", 20, True)
-		BVComponent(go2, 160,130,90,button.height)
+		AABBComponent(go2, 160,130,90,button.height)
 		
 		myLabel = LabelComponent(go, 100,100, ComponentFamily.strValue, 'valor', "arial",20)
 		val = StrValueComponent(go)
@@ -41,9 +49,29 @@ class MyLevel(GameLevel):
 		resetComponent.addAttrInit(ComponentFamily.strValue, 'valor', range(2,11))
 		resetComponent.reset() #invoke directly the "reset" feature of this component
 		
+		expression = AddExpression(NumericExpression(go, ComponentFamily.strValue, 'valor'), NumericExpression(go3, ComponentFamily.strValue, 'valor'))
+		expCondition = EqualExpressionCondition(expression, go1, ComponentFamily.graphic, 'text')
+		inside = InsideCondition()
+		inside.addParameter(go2)
+		boolean = AndCondition(inside, ClickCondition(1))
+
+		
+		
+		boolCond = AndCondition(boolean, expCondition)
+		boolCond.addProxy(SetValueAction(go5, 'valor', 'Ganastes, prueba de nuevo'))		
+		self.gameLoop.conditions.append(boolCond)
+
+
+		expCondition = NotCondition(expCondition)
+		boolean = AndCondition(inside, ClickCondition(1))
+		boolCond = AndCondition(boolean, expCondition)
+		boolCond.addProxy(SetValueAction(go5, 'valor', 'Perdiste, prueba de nuevo'))		
+		self.gameLoop.conditions.append(boolCond)
+
 		
 		line = Line(go4, 80, 160, 140, 160, (255,255,255))
 		
+		self.gameLoop.drawable.append(go5)
 		self.gameLoop.drawable.append(go4)
 		self.gameLoop.drawable.append(go3)
 		self.gameLoop.drawable.append(go2)
@@ -63,7 +91,7 @@ class MyLevel(GameLevel):
 		inside.addParameter(go2)
 		boolean = AndCondition(inside, ClickCondition(1))
 		boolean.addProxy(ResetAction(go3))
-		boolean.addProxy(ResetAction(go))
+		boolean.addProxy(ResetAction(go))		
 		
 		self.gameLoop.conditions.append(boolean)
 		
