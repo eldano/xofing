@@ -4,6 +4,7 @@ Created on 09/04/2009
 @author: Harold Selvaggi
 '''
 from framework.base.base import *
+from framework.expressions.Expressions import *
 
 class KeyboardCondition(Condition):
     def __init__(self):
@@ -104,3 +105,27 @@ class CollisionCondition(Condition):
     
     def evaluate(self, elapsed):
         return self.go1.getComponent(ComponentFamily.bounding).checkCollision(self.go2.getComponent(ComponentFamily.bounding))
+
+class EqualExpressionCondition(Condition):
+    def __init__(self, exp, go, family, field):
+        Condition.__init__(self)
+        self.expression = exp
+        self.family = family
+        self.field = field
+        self.go = go
+    
+    def evaluate(self, elapsed):
+        val = self.expression.evaluate()
+        return val == int(getattr(self.go.getComponent(self.family), self.field, 0))
+
+class EqualCondition(Condition):
+    def __init__(self, go, family, field, value):
+        Condition.__init__(self)
+        self.go = go
+        self.family = family
+        self.field = field
+        self.value = value
+        
+    def evaluate(self, elapsed):
+        val = getattr(self.go.getComponent(self.family), self.field)
+        return val == self.value

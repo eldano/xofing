@@ -2,12 +2,6 @@ from framework.base.base import *
 
 class AABBComponent(Component):
     family = ComponentFamily.bounding
-    x = None
-    y = None
-    off_x = None
-    off_y = None
-    height = None
-    width = None
     
     def __init__(self, parent, x, y, width, height):
         Component.__init__(self, parent)
@@ -23,12 +17,6 @@ class AABBComponent(Component):
 
 class VerticalCollider(Component):
     family = ComponentFamily.bounding
-    x = None
-    y = None
-    off_x = None
-    off_y = None
-    height = None
-    normal = None
     
     def __init__(self, parent, x, y, height, normal):
         Component.__init__(self, parent)
@@ -52,12 +40,6 @@ class VerticalCollider(Component):
 
 class HorizontalCollider(Component):
     family = ComponentFamily.bounding
-    x = None
-    y = None
-    off_x = None
-    off_y = None
-    width = None
-    normal = None
     
     def __init__(self, parent, x, y, width, normal):
         Component.__init__(self, parent)
