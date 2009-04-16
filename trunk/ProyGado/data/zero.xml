@@ -1,39 +1,51 @@
 <spriteDef>
 	<spriteGroup groupName="zero">
-		<img filename="../data/zx4.gif">
+		<img filename="zx4.gif">
 <!-- x,y,w,h definen la posicion y dimenciones del subsprite, hsx,hsy son las coordenadas relativas del HotSpot -->
-			<sprite id="1" x="91" y="161" w="55" h="56" hsx="26" hsy="50"/>
-			<sprite id="2" x="147" y="160" w="55" h="56" hsx="28" hsy="51"/>
-			<sprite id="3" x="204" y="160" w="55" h="56" hsx="27" hsy="49"/>
-			<sprite id="4" x="259" y="160" w="55" h="56" hsx="27" hsy="49"/>
-			<sprite id="5" x="313" y="160" w="50" h="56" hsx="28" hsy="48"/>
-			<sprite id="6" x="365" y="160" w="50" h="56" hsx="23" hsy="48"/>
-			<sprite id="7" x="417" y="160" w="55" h="56" hsx="23" hsy="51"/>
-			<sprite id="8" x="473" y="160" w="52" h="56" hsx="23" hsy="51"/>
-			<sprite id="9" x="529" y="160" w="52" h="56" hsx="18" hsy="51"/>
-			<sprite id="10" x="581" y="160" w="55" h="56" hsx="23" hsy="51"/>
-			<sprite id="11" x="638" y="160" w="55" h="56" hsx="25" hsy="51"/>
-			<sprite id="12" x="695" y="160" w="50" h="56" hsx="25" hsy="51"/>
-			<sprite id="13" x="743" y="160" w="50" h="56" hsx="25" hsy="51"/>
-			<sprite id="14" x="793" y="160" w="55" h="56" hsx="25" hsy="51"/>
+
+			<sprite id="101" x="91" y="161" w="55" h="56" hsx="26" hsy="50"/>
+			<sprite id="102" x="147" y="160" w="55" h="56" hsx="24" hsy="51"/>
+			<sprite id="103" x="204" y="160" w="55" h="56" hsx="27" hsy="49"/>
+			<sprite id="104" x="259" y="160" w="55" h="56" hsx="27" hsy="49"/>
+			<sprite id="105" x="313" y="160" w="50" h="56" hsx="28" hsy="48"/>
+			<sprite id="106" x="365" y="160" w="50" h="56" hsx="23" hsy="48"/>
+			<sprite id="107" x="417" y="160" w="55" h="56" hsx="23" hsy="51"/>
+			<sprite id="108" x="473" y="160" w="52" h="56" hsx="23" hsy="51"/>
+			<sprite id="109" x="529" y="160" w="52" h="56" hsx="18" hsy="51"/>
+			<sprite id="110" x="581" y="160" w="55" h="56" hsx="23" hsy="51"/>
+			<sprite id="111" x="638" y="160" w="55" h="56" hsx="25" hsy="51"/>
+			<sprite id="112" x="695" y="160" w="50" h="56" hsx="25" hsy="51"/>
+			<sprite id="113" x="743" y="160" w="50" h="56" hsx="25" hsy="51"/>
+			<sprite id="114" x="793" y="160" w="55" h="56" hsx="25" hsy="51"/>
+			<sprite id="201" x="4" y="0" w="45" h="56" hsx="22" hsy="50"/>
+			<sprite id="202" x="49" y="0" w="45" h="56" hsx="22" hsy="50"/>
+			<sprite id="203" x="93" y="0" w="45" h="56" hsx="22" hsy="51"/>
+			<sprite id="204" x="138" y="0" w="45" h="56" hsx="22" hsy="50"/>
+
 <!-- si el tag "keycolor" no se especifica, se toma el primer pixel del archivo como keycolor-->
 		</img>
 		<animations>
 			<animation name="correr" type="loop">
-				<frame spriteId="1" delay="0.2" order="1"/>
-				<frame spriteId="2" delay="0.2" order="2"/>
-				<frame spriteId="3" delay="0.2" order="3"/>
-				<frame spriteId="4" delay="0.2" order="4"/>
-				<frame spriteId="5" delay="0.2" order="5"/>
-				<frame spriteId="6" delay="0.2" order="6"/>
-				<frame spriteId="7" delay="0.2" order="7"/>
-				<frame spriteId="8" delay="0.2" order="8"/>
-				<frame spriteId="9" delay="0.2" order="9"/>
-				<frame spriteId="10" delay="0.2" order="10"/>
-				<frame spriteId="11" delay="0.2" order="11"/>
-				<frame spriteId="12" delay="0.2" order="12"/>
-				<frame spriteId="13" delay="0.2" order="13"/>
-				<frame spriteId="14" delay="0.2" order="14"/>
+				<frame spriteId="101" delay="200" order="1"/>
+				<frame spriteId="102" delay="200" order="2"/>
+				<frame spriteId="103" delay="200" order="3"/>
+				<frame spriteId="104" delay="200" order="4"/>
+				<frame spriteId="105" delay="200" order="5"/>
+				<frame spriteId="106" delay="200" order="6"/>
+				<frame spriteId="107" delay="200" order="7"/>
+				<frame spriteId="108" delay="200" order="8"/>
+				<frame spriteId="109" delay="200" order="9"/>
+				<frame spriteId="110" delay="200" order="10"/>
+				<frame spriteId="111" delay="200" order="11"/>
+				<frame spriteId="112" delay="200" order="12"/>
+				<frame spriteId="113" delay="200" order="13"/>
+				<frame spriteId="114" delay="200" order="14"/>
+			</animation>
+			<animation name="stand" type="loop">
+				<frame spriteId="201" delay="200" order="1"/>
+				<frame spriteId="202" delay="200" order="1"/>
+				<frame spriteId="203" delay="200" order="1"/>
+				<frame spriteId="204" delay="200" order="1"/>
 			</animation>
 		</animations>
 	</spriteGroup>
