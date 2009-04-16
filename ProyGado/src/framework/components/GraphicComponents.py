@@ -73,7 +73,7 @@ class SpriteComponent(GraphicComponent):
 		self.__lastRect = (0,0,0,0)
 		self.__acumulated_animation_time = 0
 
-	def updateSprite(self, time):
+	def update(self, time):
 		""" actualiza la animacion (con respecto a la secuencia de frames)"""
 		self.__acumulated_animation_time += time
 		while self.__animFrames[self.__actualFrame][1] < self.__acumulated_animation_time:

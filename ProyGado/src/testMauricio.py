@@ -18,7 +18,7 @@ class MyLevel(GameLevel):
 		#zeroSprite = spriteInfo[0]
 		SpriteComponent(go, 100,100, spriteInfo)
 		self.gameLoop.drawable.append(go)
-		#self.gameLoop.tickers.append(go)
+		self.gameLoop.tickers.append(go)
 	
 	def run(self):
 		self.gameLoop.gameLoop()
