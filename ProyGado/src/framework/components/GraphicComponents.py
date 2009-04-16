@@ -56,3 +56,63 @@ class Line(GraphicComponent):
 	
 	def draw(self, graphics, region):
 		pygame.draw.line(graphics, self.color, (self.x,self.y), (self.x2,self.y2))
+		
+class SpriteComponent(GraphicComponent):
+	def __init__(self, parent, x, y, spriteInfo):
+		GraphicComponent.__init__(self, parent, x, y)
+		self.__size = 1#size
+		self.__debug = False#debug
+		(img,self.__animGroups) = spriteInfo
+		(img,self.__animGroups) = spriteInfo
+		self.loadImage(img)
+		self.__start = (0,0)
+		self.__vector = (0,0)
+		self.__actualGroup = self.__animGroups.keys()[0]	#TODO: fix me
+		self.__animFrames = self.__animGroups[self.__actualGroup][1]	#TODO: fix me
+		self.__actualFrame = 0
+		self.__lastRect = (0,0,0,0)
+		self.__acumulated_animation_time = 0
+
+	def updateSprite(self, time):
+		""" actualiza la animacion (con respecto a la secuencia de frames)"""
+		self.__acumulated_animation_time += time
+		while self.__animFrames[self.__actualFrame][1] < self.__acumulated_animation_time:
+			self.__acumulated_animation_time -= self.__animFrames[self.__actualFrame][1]
+			self.__actualFrame = (self.__actualFrame + 1) % len(self.__animFrames)
+
+	def setAnim(self, animName):
+		""" Cambia a la animacion de nombre animName"""
+		if(self._actualGroup != animName):
+			self._actualGroup = animName
+			self._animFrames = self._animGroups[self._actualGroup][1]
+
+	def draw(self,screen, region):
+		(spriteId, delay) = self.__animFrames[self.__actualFrame]
+#		spriteId = self._actualFrame [0]
+#		delay = self._actualFrame[1]
+
+		subsprite = self.__subSprites[spriteId]
+		subsurf = self.__subSprites[spriteId][0]	#TODO: cambiar valor por constante a nivel de clase
+		rectangle = self.__subSprites[spriteId][1]	#TODO: cambiar valor por constante a nivel de clase
+		(hsx,hsy) = self.__subSprites[spriteId][2]	#TODO: cambiar valor por constante a nivel de clase
+
+		hotSpotPos = self.x-hsx*self.__size,self.y-hsy*self.__size
+		r = screen.blit(subsurf, hotSpotPos)
+		#TODO: se puede optimizar pintando solo el rectangulo anterior y el rectangulo actual
+
+	def loadImage(self, img):
+		filename,diccSprites,colorkey = img
+		self.__image = pygame.image.load("../data/"+filename)#tTODO: change this :)
+		self.__subSprites = {}
+		for key in diccSprites.keys():
+			#rectangle,hsx,hsy = diccSprites[key]
+			rectangle, (hsx,hsy) = diccSprites[key]
+			
+			subsurf = self.__image.subsurface(rectangle)
+			if self.__debug:
+				pygame.draw.line(subsurf,(255,0,0), (hsx-2, hsy), (hsx+2, hsy))
+				pygame.draw.line(subsurf,(255,0,0), (hsx, hsy-2), (hsx, hsy+2))
+			for i in range(self.__size-1):
+				subsurf = pygame.transform.scale2x(subsurf)
+				#TODO: verificar el posible "update" de variable "rectangle"
+			self.__subSprites[key] = (subsurf,rectangle,(hsx,hsy))
