@@ -26,26 +26,26 @@
 		</img>
 		<animations>
 			<animation name="correr" type="loop">
-				<frame spriteId="101" delay="200" order="1"/>
-				<frame spriteId="102" delay="200" order="2"/>
-				<frame spriteId="103" delay="200" order="3"/>
-				<frame spriteId="104" delay="200" order="4"/>
-				<frame spriteId="105" delay="200" order="5"/>
-				<frame spriteId="106" delay="200" order="6"/>
-				<frame spriteId="107" delay="200" order="7"/>
-				<frame spriteId="108" delay="200" order="8"/>
-				<frame spriteId="109" delay="200" order="9"/>
-				<frame spriteId="110" delay="200" order="10"/>
-				<frame spriteId="111" delay="200" order="11"/>
-				<frame spriteId="112" delay="200" order="12"/>
-				<frame spriteId="113" delay="200" order="13"/>
-				<frame spriteId="114" delay="200" order="14"/>
+				<frame spriteId="101" delay="50" order="1"/>
+				<frame spriteId="102" delay="50" order="2"/>
+				<frame spriteId="103" delay="50" order="3"/>
+				<frame spriteId="104" delay="50" order="4"/>
+				<frame spriteId="105" delay="50" order="5"/>
+				<frame spriteId="106" delay="50" order="6"/>
+				<frame spriteId="107" delay="50" order="7"/>
+				<frame spriteId="108" delay="50" order="8"/>
+				<frame spriteId="109" delay="50" order="9"/>
+				<frame spriteId="110" delay="50" order="10"/>
+				<frame spriteId="111" delay="50" order="11"/>
+				<frame spriteId="112" delay="50" order="12"/>
+				<frame spriteId="113" delay="50" order="13"/>
+				<frame spriteId="114" delay="50" order="14"/>
 			</animation>
 			<animation name="stand" type="loop">
-				<frame spriteId="201" delay="200" order="1"/>
-				<frame spriteId="202" delay="200" order="1"/>
-				<frame spriteId="203" delay="200" order="1"/>
-				<frame spriteId="204" delay="200" order="1"/>
+				<frame spriteId="201" delay="50" order="1"/>
+				<frame spriteId="202" delay="50" order="1"/>
+				<frame spriteId="203" delay="50" order="1"/>
+				<frame spriteId="204" delay="50" order="1"/>
 			</animation>
 		</animations>
 	</spriteGroup>
