@@ -14,7 +14,7 @@ class MyLevel(GameLevel):
 	
 	def populate(self):
 		go = GameObject("zero")
-		spriteInfo = xmlparser.parseSpriteFile("../data/zero.xml").values()[0] # por ahora asumo que hay solo un grupo de sprites
+		spriteInfo = xmlparser.parseSpriteFile("../data/spaceinvaderssprite.xml").values()[0] # por ahora asumo que hay solo un grupo de sprites
 		#zeroSprite = spriteInfo[0]
 		SpriteComponent(go, 100,100, spriteInfo)
 		self.gameLoop.drawable.append(go)

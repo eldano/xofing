@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<spriteDef>
+	<spriteGroup groupName="invadesrsspares">
+		<img filename="invadesrsspares.png">
+			<sprite h="64" hsx="44" hsy="32" id="0" w="88" x="8" y="8"/>
+			<sprite h="64" hsx="44" hsy="32" id="1" w="88" x="112" y="8"/>
+		</img>
+		<animations>
+			<animation name="animation_0" type="loop">
+                                <frame delay="500" order="0" spriteId="0"/>
+                                <frame delay="500" order="1" spriteId="1"/>
+			</animation>
+		</animations>
+	</spriteGroup>
+</spriteDef>
