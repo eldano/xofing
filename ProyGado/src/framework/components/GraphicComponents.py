@@ -53,7 +53,10 @@ class Line(GraphicComponent):
 		self.x2 = x2
 		self.y2 = y2
 		self.color = color
-		self.width = width
+		if width == None:
+			self.width = 1
+		else:
+		  self.width = width
 	
 	def draw(self, graphics, region):
 		pygame.draw.line(graphics, self.color, (self.x,self.y), (self.x2,self.y2), self.width)
