@@ -1,5 +1,5 @@
 from framework.base.base import *
-from framework.components.GraphicComponents import Image
+from framework.components.GraphicComponents import *
 from framework.components.ValueComponents import StrValueComponent
 from framework.components.GUIComponent import *
 from framework.components.ResetComponent import ResetComponent
@@ -50,11 +50,13 @@ class TestDanielLevel(GameLevel):
         #roofCollisionCondition.addProxy(BounceAction(ballGO, roofGO))
         
         leftWallGO = GameObject('leftWall')
+        leftWallGraphicComponent = Line(leftWallGO, 0, 0, 0, 480, (0,255,255), 5)
         leftWallBVComponent = VerticalCollider(leftWallGO, 0, 0, 480, (1,0))
         leftWallCollisionCondition = CollisionCondition(leftWallGO, ballGO)
         leftWallCollisionCondition.addProxy(BounceAction(ballGO, leftWallGO))
         
         rightWallGO = GameObject('rightWall')
+        rightWallGraphicComponent = Line(rightWallGO, 640, 0, 640, 480, (0,255,255), 5)
         rightWallBVComponent = VerticalCollider(rightWallGO, 640, 0, 480, (-1,0))
         rightWallCollisionCondition = CollisionCondition(rightWallGO, ballGO)
         rightWallCollisionCondition.addProxy(BounceAction(ballGO, rightWallGO))
@@ -112,6 +114,9 @@ class TestDanielLevel(GameLevel):
         self.gameLoop.drawable.append(pad2GO)
         self.gameLoop.tickers.append(pad1GO)
         self.gameLoop.tickers.append(pad2GO)
+        
+        self.gameLoop.drawable.append(leftWallGO)
+        self.gameLoop.drawable.append(rightWallGO)
         
         self.gameLoop.conditions.append(floorCollisionCondition)
         self.gameLoop.conditions.append(roofCollisionCondition)
