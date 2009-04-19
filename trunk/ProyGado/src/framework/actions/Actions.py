@@ -7,6 +7,19 @@ Created on 09/04/2009
 from framework.base.base import *
 from framework.base.vec2d import *
 
+class Action:
+    def __init__(self, go, transition, family):
+        self.gameObject = go
+        self.transition = transition
+        self.family = family
+    
+    def setGameObject(self, go):
+        self.gameObject = go
+    
+    def execute(self):
+        co = self.gameObject.getComponent(self.family)
+        co.stateChange(self.transition)
+
 class KeyboardAction(Action):
     def __init__(self, go, family):
         Action.__init__(self, go, '', family)

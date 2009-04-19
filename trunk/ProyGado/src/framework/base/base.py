@@ -6,19 +6,6 @@ Created on 30/03/2009
 import pygame
 import os
 
-class Action:
-	def __init__(self, go, transition, family):
-		self.gameObject = go
-		self.transition = transition
-		self.family = family
-	
-	def setGameObject(self, go):
-		self.gameObject = go
-	
-	def execute(self):
-		co = self.gameObject.getComponent(self.family)
-		co.stateChange(self.transition)
-
 class Condition:
 	def __init__(self):
 		self.parameters = []
