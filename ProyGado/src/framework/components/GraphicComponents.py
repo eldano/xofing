@@ -48,14 +48,15 @@ class Image(GraphicComponent):
 		pass
 
 class Line(GraphicComponent):
-	def __init__(self, parent, x, y, x2, y2, color):
+	def __init__(self, parent, x, y, x2, y2, color, width = None):
 		GraphicComponent.__init__(self, parent, x, y)
 		self.x2 = x2
 		self.y2 = y2
 		self.color = color
+		self.width = width
 	
 	def draw(self, graphics, region):
-		pygame.draw.line(graphics, self.color, (self.x,self.y), (self.x2,self.y2))
+		pygame.draw.line(graphics, self.color, (self.x,self.y), (self.x2,self.y2), self.width)
 		
 class SpriteComponent(GraphicComponent):
 	def __init__(self, parent, x, y, spriteInfo):
