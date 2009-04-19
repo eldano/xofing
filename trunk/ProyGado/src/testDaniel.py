@@ -15,7 +15,7 @@ class TestDanielLevel(GameLevel):
     
     def populate(self):
         ballGO = GameObject('bola')
-        ballGraphicComponent = Image(ballGO, '../data/bola.PNG', 300, 200)
+        ballGraphicComponent = Image(ballGO, '../data/bola2.PNG', 300, 200)
         ballMovementComponent = XYMovement(ballGO)
         ballMovementComponent.velX = 0.05
         ballMovementComponent.velY = 0.2
@@ -65,9 +65,21 @@ class TestDanielLevel(GameLevel):
         
         pad1CollisionCondition = CollisionCondition(pad1GO, ballGO)
         pad1CollisionCondition.addProxy(BounceAction(ballGO, pad1GO))
+        expr11 = FloatExpression(ballGO, ComponentFamily.move, 'velX')
+        expr12 = FloatExpression(pad1GO, ComponentFamily.move, 'velocity')
+        expr13 = AddFloatExpression(expr11, expr12)
+        expr14 = ConstantExpression(4)
+        expr15 = DivExpression(expr13, expr14)
+        pad1CollisionCondition.addProxy(SetExpressionValueAction(ballGO, 'velX', ComponentFamily.move, expr15))
         
         pad2CollisionCondition = CollisionCondition(pad2GO, ballGO)
         pad2CollisionCondition.addProxy(BounceAction(ballGO, pad2GO))
+        expr21 = FloatExpression(ballGO, ComponentFamily.move, 'velX')
+        expr22 = FloatExpression(pad2GO, ComponentFamily.move, 'velocity')
+        expr23 = AddFloatExpression(expr21, expr22)
+        expr24 = ConstantExpression(4)
+        expr25 = DivExpression(expr23, expr24)
+        pad2CollisionCondition.addProxy(SetExpressionValueAction(ballGO, 'velX', ComponentFamily.move, expr25))
         
         leftArrowPressKeyCondition = SpecificKeyCondition(275)
         leftArrowReleaseKeyCondition = KeyReleaseCondition(275)
