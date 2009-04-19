@@ -63,4 +63,15 @@ class SetValueAction(Action):
     def execute(self):
         obj = self.gameObject.getComponent(ComponentFamily.strValue)
         obj.addAttr(self.attribute, self.value)
+
+class SetExpressionValueAction(Action):
+    def __init__(self, go, attr, family, expr):
+        Action.__init__(self, go, None, family)
+        self.expression = expr
+        self.attribute = attr
+    
+    def execute(self):
+        component = self.gameObject.getComponent(self.family)
+        exprval = self.expression.evaluate()
+        setattr(component, self.attribute, exprval)
         
