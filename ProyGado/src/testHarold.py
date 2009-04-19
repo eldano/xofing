@@ -20,6 +20,8 @@ class MyLevel(GameLevel):
 		GameLevel.__init__(self, loop, surface)
 	
 	def populate(self):
+		go7 = GameObject()
+		go6 = GameObject()
 		go5 = GameObject()
 		go4 = GameObject()
 		go3 = GameObject()
@@ -55,12 +57,9 @@ class MyLevel(GameLevel):
 		inside.addParameter(go2)
 		boolean = AndCondition(inside, ClickCondition(1))
 
-		
-		
 		boolCond = AndCondition(boolean, expCondition)
-		boolCond.addProxy(SetValueAction(go5, 'valor', 'Ganastes, prueba de nuevo'))		
+		boolCond.addProxy(SetValueAction(go5, 'valor', 'Ganaste, prueba de nuevo'))		
 		self.gameLoop.conditions.append(boolCond)
-
 
 		expCondition = NotCondition(expCondition)
 		boolean = AndCondition(inside, ClickCondition(1))
@@ -68,9 +67,12 @@ class MyLevel(GameLevel):
 		boolCond.addProxy(SetValueAction(go5, 'valor', 'Perdiste, prueba de nuevo'))		
 		self.gameLoop.conditions.append(boolCond)
 
-		
 		line = Line(go4, 80, 160, 140, 160, (255,255,255))
+		lineMasVt = Line(go6, 80, 120, 80, 140, (255,255,255))
+		lineMashZ = Line(go7, 70, 130, 90, 130, (255,255,255))
 		
+		self.gameLoop.drawable.append(go7)
+		self.gameLoop.drawable.append(go6)
 		self.gameLoop.drawable.append(go5)
 		self.gameLoop.drawable.append(go4)
 		self.gameLoop.drawable.append(go3)
@@ -91,7 +93,7 @@ class MyLevel(GameLevel):
 		inside.addParameter(go2)
 		boolean = AndCondition(inside, ClickCondition(1))
 		boolean.addProxy(ResetAction(go3))
-		boolean.addProxy(ResetAction(go))		
+		boolean.addProxy(ResetAction(go))
 		
 		self.gameLoop.conditions.append(boolean)
 		
