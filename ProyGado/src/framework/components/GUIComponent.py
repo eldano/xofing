@@ -120,4 +120,3 @@ class TextField(GraphicComponent):
 		
 		if(self.cursor and self.focus):
 			pygame.draw.line(graphics, GUIStyle.textColor, (self.x + tw+self.border, self.y + self.border), (self.x + tw+self.border, self.y + self.border + th), 2)
-
