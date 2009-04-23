@@ -120,3 +120,40 @@ class SpriteComponent(GraphicComponent):
 				subsurf = pygame.transform.scale2x(subsurf)
 				#TODO: verificar el posible "update" de variable "rectangle"
 			self.__subSprites[key] = (subsurf,rectangle,(hsx,hsy))
+
+
+class MenuComponent(GraphicComponent):
+	border = 3
+	
+	def __init__(self, parent, items, x, y, font, size, color1, color2):
+		GraphicComponent.__init__(self, parent, x, y)
+		self.items = items
+		self.selected = 0
+		self.colorUnselected = color1
+		self.colorSelected = color2
+		self.font = pygame.font.SysFont(font, size)
+		self.boldFont = pygame.font.SysFont(font, size, True)
+		self.height = self.font.size("")[1] + 2*MenuComponent.border
+	
+	def draw(self, graphics, region):
+		curY = self.y
+		counter = 0
+		for item in self.items:
+			(tw, th) = self.font.size(item)
+			if counter == self.selected:
+				render = self.boldFont.render(item, False, self.colorSelected)
+			else:
+				render = self.font.render(item, False, self.colorUnselected)
+			graphics.blit(render, (self.x-tw/2,curY))
+			counter = counter + 1
+			curY = curY + th + MenuComponent.border
+
+	def stateChange(self, transition):
+		if transition == 1:
+			self.selected = self.selected + 1
+			if(self.selected > len(self.items) - 1):
+				self.selected = self.selected - 1
+		if transition == 2:
+			self.selected = self.selected - 1
+			if(self.selected < 0):
+				self.selected = self.selected + 1
