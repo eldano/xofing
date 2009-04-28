@@ -1,0 +1,15 @@
+<?xml version="1.0" ?>
+<spriteDef>
+	<spriteGroup groupName="invadersprite">
+		<img filename="../data/invadersprite.png">
+			<sprite h="32" hsx="22" hsy="16" id="0" w="44" x="4" y="4"/>
+			<sprite h="32" hsx="22" hsy="16" id="1" w="44" x="56" y="4"/>
+		</img>
+		<animations>
+			<animation name="animation_0" type="loop">
+				<frame delay="200" order="0" spriteId="0"/>
+				<frame delay="200" order="1" spriteId="1"/>
+			</animation>
+		</animations>
+	</spriteGroup>
+</spriteDef>
