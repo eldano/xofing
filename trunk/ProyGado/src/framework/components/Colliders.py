@@ -17,6 +17,17 @@ class AABBComponent(Component):
             self.x = value
         if attr == 'y':
             self.y = value
+
+    def checkCollision(self, boundingBox):
+        cx = boundingBox.x
+        cy = boundingBox.y
+        cw = boundingBox.width
+        ch = boundingBox.height
+        
+        if (cx > self.x and cx < self.x + self.width) or (cx + ch < self.x + self.width and cx + ch > self.x):
+            if (cy > self.y and cy < self.y + self.height) or (cy + ch < self.y + self.height and cy + ch > self.y):
+                return True
+        return False
     
     def inside(self, (x,y)):
         return self.x < x and self.y < y and (self.x + self.width) > x and (self.y + self.height) > y
@@ -64,6 +75,5 @@ class HorizontalCollider(Component):
                 
         if (cx + cw > self.x and cx < self.x + self.width):
             if(cy <= self.y and cy + ch > self.y):
-                print 'choco'
                 return True
         return False

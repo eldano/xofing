@@ -2,7 +2,7 @@ import pygame
 import os
 pygame.font.init()
 #from framework.base.base import *
-from framework.base.base import GraphicComponent
+from framework.base.base import *
 
 class LabelComponent(GraphicComponent):
 	def __init__(self, parent, x, y, componentFamily, attrName, font, size, go = None):
@@ -11,7 +11,8 @@ class LabelComponent(GraphicComponent):
 		self.attrName = attrName
 		self.font = font
 		self.size = size
-		self.sysFont = pygame.font.SysFont(self.font, self.size) 
+		self.sysFont = pygame.font.SysFont(self.font, self.size)
+		self.color = (255,255,255)
 		if go == None:
 			self.go = parent
 		else:
@@ -20,7 +21,7 @@ class LabelComponent(GraphicComponent):
 	def draw(self, graphics, region):
 		co = self.go.getComponent(self.componentFamily)
 		value = getattr(co, self.attrName, 'sin valor')
-		graphics.blit(self.sysFont.render(str(value), True, (255,255,255)), (self.x,self.y))
+		graphics.blit(self.sysFont.render(str(value), True, self.color), (self.x,self.y))
 		#TODO: (Mauricio) : value may be None 
 
 
@@ -144,7 +145,7 @@ class SpriteComponent(GraphicComponent):
 
 class MenuComponent(GraphicComponent):
 	border = 3
-	
+	family = ComponentFamily.graphic
 	def __init__(self, parent, items, x, y, font, size, color1, color2):
 		GraphicComponent.__init__(self, parent, x, y)
 		self.items = items
