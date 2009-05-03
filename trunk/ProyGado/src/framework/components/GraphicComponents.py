@@ -23,6 +23,8 @@ class LabelComponent(GraphicComponent):
 		graphics.blit(self.sysFont.render(str(value), True, (255,255,255)), (self.x,self.y))
 		#TODO: (Mauricio) : value may be None 
 
+
+
 class Image(GraphicComponent):
 	def __init__(self, parent, imagePath, x, y, w = None, h = None):
 		'''
@@ -30,6 +32,7 @@ class Image(GraphicComponent):
 		If the parameter w(or h) are None, then the value of w(or h) is the same that the image file 
 		'''
 		GraphicComponent.__init__(self, parent, x, y)
+		self.imagePath = imagePath	#for the __deepcopy__ method
 		imageOsPath = os.path.join('', imagePath)
 		self.image = pygame.image.load(imageOsPath)
 		if w is None:
@@ -40,18 +43,29 @@ class Image(GraphicComponent):
 			self.h = self.image.get_rect().h
 		else:
 			self.h = h
-	
+
 	def setattr(self, attr, value):
 		if attr == 'x':
 			self.x = value
 		if attr == 'y':
 			self.y = value
-				
+	
 	def draw(self, graphics, region):
 		pygame.display.get_surface().blit(self.image, (self.x,self.y,self.w,self.h))
 
 	def update(self, dt):
 		pass
+	
+	def __deepcopy__(self, memo={}):
+		import copy
+		if memo.has_key(id(self)):
+			return memo[id(self)]
+		else:
+			theCopy = Image( memo[id(self.parent)], copy.deepcopy(self.imagePath, memo), copy.deepcopy(self.x, memo), copy.deepcopy(self.y, memo), copy.deepcopy(self.w, memo), copy.deepcopy(self.h, memo) )
+			memo[id(self)] = theCopy
+			theCopy.image = self.image.copy()
+			return theCopy
+
 
 class Line(GraphicComponent):
 	def __init__(self, parent, x, y, x2, y2, color, width = None):
@@ -62,7 +76,7 @@ class Line(GraphicComponent):
 		if width == None:
 			self.width = 1
 		else:
-		  self.width = width
+			self.width = width
 	
 	def draw(self, graphics, region):
 		pygame.draw.line(graphics, self.color, (self.x,self.y), (self.x2,self.y2), self.width)
