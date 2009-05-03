@@ -12,6 +12,12 @@ class AABBComponent(Component):
         self.width = width
         self.height = height
     
+    def setattr(self, attr, value):
+        if attr == 'x':
+            self.x = value
+        if attr == 'y':
+            self.y = value
+    
     def inside(self, (x,y)):
         return self.x < x and self.y < y and (self.x + self.width) > x and (self.y + self.height) > y
 
@@ -58,5 +64,6 @@ class HorizontalCollider(Component):
                 
         if (cx + cw > self.x and cx < self.x + self.width):
             if(cy <= self.y and cy + ch > self.y):
+                print 'choco'
                 return True
         return False
