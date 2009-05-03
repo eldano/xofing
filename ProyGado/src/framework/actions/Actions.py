@@ -87,4 +87,18 @@ class SetExpressionValueAction(Action):
         component = self.gameObject.getComponent(self.family)
         exprval = self.expression.evaluate()
         setattr(component, self.attribute, exprval)
+
+class CopyValueAction(Action):
+    def __init__(self, var, displacement):
+        Action.__init__(self, go, transition, family)
         
+class GenericSetValueAction(Action):
+    def __init__(self, go, attr, val, family):
+        Action.__init__(self, go, None, None)
+        self.value = val
+        self.attribute = attr
+        self.family = family
+    
+    def execute(self):
+        obj = self.gameObject.getComponent(self.family)
+        obj.setattr(self.attribute, self.value)
