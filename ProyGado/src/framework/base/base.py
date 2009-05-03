@@ -57,7 +57,7 @@ class AndCondition(BinaryCondition):
 
 class OrCondition(BinaryCondition):
 	def __init__(self, c1, c2):
-		BinaryCondtiion.__init__(sefl, c1, c2)
+		BinaryCondtiion.__init__(self, c1, c2)
 	
 	def evaluate(self, elapsed):
 		return self.condition1.evaluate(elapsed) or self.condition2.evaluate(elapsed)
@@ -115,6 +115,17 @@ class GameObject:
 	def sendUpdate(self, elapsed):
 		for up in self.components:
 			self.components[up].update(elapsed)
+	
+	def __deepcopy__(self, memo = {}):
+		import copy
+		if memo.has_key(id(self)):
+			return memo[id(self)]
+		else:
+			theCopy = GameObject(copy.deepcopy(self.name))
+			memo[id(self)] = theCopy
+			for component in self.components.values():
+				theCopy.components[component.family] = copy.deepcopy(component, memo)
+			return theCopy
 
 class InputState:
 	downKeys = []
