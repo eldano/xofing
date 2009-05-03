@@ -78,6 +78,14 @@ class GravityMovement(Component):
 		self.yVelocity = 0
 		self.state = 0
 	
+	def setattr(self, attr, value):
+		if attr == 'x':
+			self.x = value
+		if attr == 'y':
+			self.y = value
+		if attr == 'gravity':
+			self.gravity = value
+	
 	def setX(self, x, y):
 		dx = self.x - x
 		dy = self.y - y

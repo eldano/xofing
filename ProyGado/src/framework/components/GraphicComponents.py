@@ -41,6 +41,12 @@ class Image(GraphicComponent):
 		else:
 			self.h = h
 	
+	def setattr(self, attr, value):
+		if attr == 'x':
+			self.x = value
+		if attr == 'y':
+			self.y = value
+				
 	def draw(self, graphics, region):
 		pygame.display.get_surface().blit(self.image, (self.x,self.y,self.w,self.h))
 
