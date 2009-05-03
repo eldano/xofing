@@ -155,6 +155,7 @@ class GameLoop(GameObject):
 		self.mouseState = 0
 		self.returnCode = 0
 		self.elapsed = 0
+		self.fillColor = (0,0,0)
 	
 	def setEndGame(self):
 		self.endState = True
@@ -170,6 +171,16 @@ class GameLoop(GameObject):
 			InputState.downKeys.append(event.key)
 		elif event.type == pygame.KEYUP:
 			InputState.upKeys.append(event.key)
+	
+	def clear(self):
+		self.drawable = []
+		self.tickers = []
+		self.conditions = []
+		self.endState = False
+		self.keyState = 0
+		self.mouseState = 0
+		self.returnCode = 0
+		self.elapsed = 0
 	
 	def gameLoop(self):
 		clock = pygame.time.Clock()
@@ -189,7 +200,7 @@ class GameLoop(GameObject):
 				if cond.evaluate(self.elapsed):
 					cond.execute()
 			
-			self.graphics.fill((0,0,0))
+			self.graphics.fill(self.fillColor)
 			
 			# Draw objects
 			for comp in self.drawable:
@@ -216,7 +227,9 @@ class GameManager:
 	def run(self, level):
 #		level.populate()
 		level.setSurface(self.screen)
-		level.run()
+		next = level
+		while not next == None:
+			next = next.run()
 		
 	
 class GameLevel:
