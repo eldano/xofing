@@ -130,6 +130,34 @@ class EqualCondition(Condition):
         val = getattr(self.go.getComponent(self.family), self.field)
         return val == self.value
 
+class GraphicOutOfBoundsCondition(Condition):
+	#TODO: terminar de implementar
+	def __init__(self, go, leftWall = None, rightWall = None, upWall = None, downWall = None):
+		self.__go = go
+		self.__leftWall = leftWall
+		self.__rightWall = rightWall
+		self.__upWall = upWall
+		self.__downWall = downWall
+
+	def evaluate(self, elapsed):
+		bounds = self.go.getComponent(ComponentFamily.bounding)
+		if self.__leftWall is not None:
+			#evaluate if the bounding component of the game object is at the left side of the leftWall
+			return True
+		if self.__rightWall is not None:
+			#evaluate if the bounding component of the game object is at the right side of the leftWall
+			return True
+		if self.__upWall is not None:
+			#evaluate if the bounding component of the game object is over the upWall
+			return True
+		if self.__downWall is not None:
+			#evaluate if the bounding component of the game object is under the downWall
+			return True
+
+class MultipleCollisionCondition(Condition):
+	def __init__(self):
+		pass
+
 class TimerCondition(Condition):
     def __init__(self, elapsed):
         Condition.__init__(self)
