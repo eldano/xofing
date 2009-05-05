@@ -162,7 +162,7 @@ class Level1(GameLevel):
 		
 		barGO = GameObject('bar1')
 		barBVComponent = HorizontalCollider(barGO, 320,200, 100, (0,-1))
-		Image(barGO, '../data/pad.PNG', 320, 200)
+		Image(barGO, '../data/pad.png', 320, 200)
 		barCollisionCondition = CollisionCondition(barGO, characterGO)
 		barCollisionCondition.addProxy(Action(characterGO, 4, ComponentFamily.move))
 		barCollisionCondition.addProxy(GenericSetValueAction(characterGO, 'y', 170, ComponentFamily.graphic))
@@ -184,7 +184,7 @@ class Level1(GameLevel):
 		
 		barGO = GameObject('bar1')
 		barBVComponent = HorizontalCollider(barGO, 150,300, 100, (0,-1))
-		Image(barGO, '../data/pad.PNG', 150, 300)
+		Image(barGO, '../data/pad.png', 150, 300)
 		barCollisionCondition = CollisionCondition(barGO, characterGO)
 		barCollisionCondition.addProxy(Action(characterGO, 4, ComponentFamily.move))
 		barCollisionCondition.addProxy(GenericSetValueAction(characterGO, 'y', 270, ComponentFamily.graphic))

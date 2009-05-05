@@ -132,4 +132,3 @@ def parseSpriteFile(file):
 #print "resultado --> "
 #for i in a.keys():
 #	print "\n",i, a[i]
-

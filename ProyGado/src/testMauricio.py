@@ -73,4 +73,3 @@ class MyLevel(GameLevel):
 
 manager = GameManager()
 manager.run(MyLevel(None, None))
-
