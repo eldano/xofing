@@ -30,11 +30,11 @@ class LeftRightMoveComponent(Component):
 			if(self.velocity > 0):
 				self.velocity = self.velocity - self.aceleration * dt
 				if(self.velocity < 0):
-				    self.velocity = 0
+					self.velocity = 0
 			if(self.velocity < 0):
 				self.velocity = self.velocity + self.aceleration * dt
 				if(self.velocity > 0):
-				    self.velocity = 0
+					self.velocity = 0
 		if(self.state == 3):
 			self.velocity = 0
 		xIncrement = self.velocity * dt
