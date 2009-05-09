@@ -1,4 +1,6 @@
 from framework.base.base import *
+from pygame import Rect
+import copy
 
 class AABBComponent(Component):
 	family = ComponentFamily.bounding
@@ -77,3 +79,15 @@ class HorizontalCollider(Component):
 			if(cy <= self.y and cy + ch > self.y):
 				return True
 		return False
+
+class RectColider(Component):
+	family = ComponentFamily.bounding
+	
+	def __init__(self, x, y, w, h):
+		self.__rect =  Rect(x,y,w,h)
+
+	def getRect(self):
+		"""
+		Devuelve una copia del pygame.Rect que define el BoundingBox
+		"""
+		return copy.deepcopy( self.__rect )

@@ -97,7 +97,7 @@ class Level1(GameLevel):
 		AABBComponent(fruta, 300, 50, 50, 50)
 		self.gameLoop.drawable.append(fruta)
 		removeCondition = CollisionCondition(fruta, characterGO)
-		removeCondition.addProxy(RemoveObjectAction(self.gameLoop, fruta, removeCondition))
+		removeCondition.addProxy(RemoveObjectAction(self.gameLoop, fruta, removeCondition, False))
 		removeCondition.addProxy(AddAction(marcador, ComponentFamily.strValue, 'valor', 550))
 		self.gameLoop.conditions.append(removeCondition) 
 
@@ -106,7 +106,7 @@ class Level1(GameLevel):
 		AABBComponent(fruta, 450, 50, 50, 50)
 		self.gameLoop.drawable.append(fruta)
 		removeCondition = CollisionCondition(fruta, characterGO)
-		removeCondition.addProxy(RemoveObjectAction(self.gameLoop, fruta, removeCondition))
+		removeCondition.addProxy(RemoveObjectAction(self.gameLoop, fruta, removeCondition, False))
 		removeCondition.addProxy(AddAction(marcador, ComponentFamily.strValue, 'valor', 550))
 		self.gameLoop.conditions.append(removeCondition) 
 		
@@ -115,7 +115,7 @@ class Level1(GameLevel):
 		AABBComponent(fruta, 200, 150, 50, 50)
 		self.gameLoop.drawable.append(fruta)
 		removeCondition = CollisionCondition(fruta, characterGO)
-		removeCondition.addProxy(RemoveObjectAction(self.gameLoop, fruta, removeCondition))
+		removeCondition.addProxy(RemoveObjectAction(self.gameLoop, fruta, removeCondition, False))
 		removeCondition.addProxy(AddAction(marcador, ComponentFamily.strValue, 'valor', 550))
 		self.gameLoop.conditions.append(removeCondition) 
 
@@ -124,7 +124,7 @@ class Level1(GameLevel):
 		AABBComponent(fruta, 50, 110, 50, 50)
 		self.gameLoop.drawable.append(fruta)
 		removeCondition = CollisionCondition(fruta, characterGO)
-		removeCondition.addProxy(RemoveObjectAction(self.gameLoop, fruta, removeCondition))
+		removeCondition.addProxy(RemoveObjectAction(self.gameLoop, fruta, removeCondition, False))
 		removeCondition.addProxy(AddAction(marcador, ComponentFamily.strValue, 'valor', 550))
 		self.gameLoop.conditions.append(removeCondition) 
 		
