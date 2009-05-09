@@ -5,6 +5,7 @@ Created on 09/04/2009
 '''
 from framework.base.base import *
 from framework.expressions.Expressions import *
+from framework.base.base import ComponentFamily
 
 class KeyboardCondition(Condition):
 	def __init__(self):
@@ -155,8 +156,29 @@ class GraphicOutOfBoundsCondition(Condition):
 			return True
 
 class MultipleCollisionCondition(Condition):
-	def __init__(self):
-		pass
+	def __init__(self, list1, list2):
+		conditionResult = False
+		
+		rectList1 = map(lambda x: x.getcomponent(ComponentFamily.bounding).getRect(), list1)
+		rectList2 = map(lambda x: x.getcomponent(ComponentFamily.bounding).getRect(), list2)
+		
+		self.colideList1 = []
+		self.colideList2 = set()
+		
+		for rectIndex in xrange(len(rectList1)):
+			indexList = rectList1[rectIndex].collidelistall(rectList2)
+			if indexList is not []:
+				conditionResult = True
+				self.colideList1.append(rectIndex)
+				self.colideList2.update(indexList)
+		
+		return conditionResult
+	
+	def execute(self):
+		for proxy in self.proxy:
+			map(lambda x: proxy.setGameObject(x) or proxy.execute(), self.colideList1) 
+			map(lambda x: proxy.setGameObject(x) or proxy.execute(), self.colideList2) 
+
 
 class TimerCondition(Condition):
 	def __init__(self, elapsed):

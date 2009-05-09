@@ -137,11 +137,13 @@ class AddAction(Action):
 		setattr(self.gameObject.getComponent(self.family), self.name, int(getattr(self.gameObject.getComponent(self.family), (self.name)))+self.count)
 
 class RemoveObjectAction(Action):
-	def __init__(self, gl, go, cond):
+	def __init__(self, gl, go, cond, persistCondition):
 		self.go = go
 		self.condition = cond
 		self.gameLoop = gl
+		self.persistCondition = persistCondition
 	
 	def execute(self):
-		self.gameLoop.conditions.remove(self.condition)
+		if not self.persistCondition:
+			self.gameLoop.conditions.remove(self.condition)
 		self.gameLoop.drawable.remove(self.go)

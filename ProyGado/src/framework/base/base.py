@@ -194,6 +194,10 @@ class GameLoop(GameObject):
 						
 			InputState.mousePos = pygame.mouse.get_pos()
 			InputState.mouseButtons = pygame.mouse.get_pressed()
+
+			#send all the ticks
+			for tick in self.tickers:
+				tick.sendUpdate(self.elapsed)
 			
 			# Evaluate all conditions
 			for cond in self.conditions:
@@ -209,9 +213,6 @@ class GameLoop(GameObject):
 			
 			pygame.display.flip()
 			
-			for tick in self.tickers:
-				tick.sendUpdate(self.elapsed)
-		
 		return self.returnCode
 		
 class GameManager:
